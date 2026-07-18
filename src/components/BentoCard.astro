@@ -1,0 +1,108 @@
+---
+interface Props {
+  href?: string;
+  colSpan?: number;
+  rowSpan?: number;
+  background?: string;
+  color?: string;
+  padding?: string;
+  external?: boolean;
+  draggable?: boolean;
+  arrow?: boolean;
+  class?: string;
+}
+
+const {
+  href,
+  colSpan = 1,
+  rowSpan = 1,
+  background,
+  color,
+  padding = "28px",
+  external = false,
+  draggable = false,
+  arrow = false,
+  class: className = "",
+} = Astro.props;
+
+const Tag = href ? "a" : "div";
+const style = [
+  `--col-span:${colSpan}`,
+  `--row-span:${rowSpan}`,
+  `--pad:${padding}`,
+  background ? `background:${background}` : "",
+  color ? `color:${color}` : "",
+]
+  .filter(Boolean)
+  .join(";");
+---
+
+<Tag
+  href={href}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noopener" : undefined}
+  draggable={draggable ? "true" : undefined}
+  class:list={["bento-card", "card", { "is-draggable": draggable }, className]}
+  style={style}
+>
+  <slot />
+  {arrow && href && (
+    <span class="card-arrow" aria-hidden="true">↗</span>
+  )}
+</Tag>
+
+<style>
+  .bento-card {
+    grid-column: span var(--col-span);
+    grid-row: span var(--row-span);
+    padding: var(--pad);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .card-arrow {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    box-shadow: var(--shadow-card);
+    z-index: 3;
+    transition: transform 0.15s ease;
+  }
+
+  .bento-card:hover .card-arrow {
+    transform: scale(1.08);
+  }
+
+  .bento-card.is-draggable {
+    cursor: grab;
+  }
+
+  .bento-card.is-draggable.is-dragging {
+    cursor: grabbing;
+    opacity: 0.4;
+  }
+
+  @media (max-width: 900px) {
+    .bento-card {
+      grid-column: span 2;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .bento-card {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+  }
+</style>

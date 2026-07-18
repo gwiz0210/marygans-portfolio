@@ -1,0 +1,120 @@
+---
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? path === "/" : path.startsWith(href);
+
+const links = [
+  { href: "/", label: "home" },
+  { href: "/work", label: "work" },
+  { href: "/about-me", label: "about" },
+  { href: "/my-process", label: "process" },
+];
+---
+
+<header class="nav">
+  <a href="/" class="wordmark">
+    <img src="/images/favicon.png" alt="" class="wordmark-icon" width="28" height="28" />
+    marygans
+  </a>
+
+  <nav class="pills">
+    {
+      links.map((link) => (
+        <a href={link.href} class:list={["pill", { active: isActive(link.href) }]}>
+          {link.label}
+        </a>
+      ))
+    }
+  </nav>
+
+  <div class="nav-actions">
+    <a href="/documents/MaryGans-Resume-Latest.pdf" target="_blank" rel="noopener" class="nav-link">
+      resume
+    </a>
+    <a href="#contact" class="nav-link nav-link--emphasis">Contact</a>
+  </div>
+</header>
+
+<style>
+  .nav {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 28px 24px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .wordmark {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-heading);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: var(--ink);
+  }
+
+  .wordmark-icon {
+    display: block;
+  }
+
+  .pills {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(251, 250, 247, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 999px;
+    padding: 6px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .pill {
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .pill:hover {
+    color: var(--ink);
+  }
+
+  .pill.active {
+    background: var(--ink);
+    color: var(--surface);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 14px;
+  }
+
+  .nav-link--emphasis {
+    font-weight: 600;
+  }
+
+  @media (max-width: 720px) {
+    .nav {
+      flex-wrap: wrap;
+      padding-top: 20px;
+    }
+
+    .pills {
+      order: 3;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .nav-actions {
+      gap: 14px;
+    }
+  }
+</style>

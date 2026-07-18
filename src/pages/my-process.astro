@@ -1,0 +1,214 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BentoCard from "../components/BentoCard.astro";
+
+const allStudies = await getCollection("case-studies");
+const featuredStudy = allStudies.find((study) => (study.data.slug ?? study.id) === "fluent-design-system");
+
+const steps = [
+  {
+    number: 1,
+    title: "discover & define",
+    emoji: "🔍",
+    background: "var(--accent-blue)",
+    text: "Empathize. A good product begins with understanding the problem. Who is the target audience? What are their needs?",
+  },
+  {
+    number: 2,
+    title: "design",
+    emoji: "✏️",
+    background: "var(--accent-lilac)",
+    text: "Sketch. It's time to consider how users will interact with our proposed solution, forming a clear picture of the interface with wireframes, user journey maps, personas, and more.",
+  },
+  {
+    number: 3,
+    title: "prototype & test",
+    emoji: "🧪",
+    background: "var(--accent-mint)",
+    text: "Create. Here's the extra fun part: let's make the experience as real as it can be for our users. User testing allows people to try it out and give feedback to refine the product.",
+  },
+  {
+    number: 4,
+    title: "release, rinse & repeat",
+    emoji: "🔁",
+    background: "var(--accent-yellow)",
+    text: "Iterate. Continually improving, designing, and gathering user feedback helps create comprehensive models aligned with user needs, saving time, energy, and money.",
+  },
+];
+---
+
+<BaseLayout title="My process - Mary Gansallo" description="How Mary Gansallo takes a project from discovery through release.">
+  <div class="page-shell">
+    <div class="process-intro-row">
+      <BentoCard colSpan={1} rowSpan={1} class="intro-card">
+        <h1>my process 🛣️</h1>
+        <p>
+          My design process is ever-evolving and flexible, adaptable to any
+          project from a redesign to a brand-new product.
+        </p>
+        <p>
+          I map every project to this process with a systems mindset, though
+          steps sometimes overlap depending on timelines and team setup.
+        </p>
+      </BentoCard>
+
+      {featuredStudy && (
+        <BentoCard
+          href={`/case-studies/${featuredStudy.data.slug ?? featuredStudy.id}`}
+          colSpan={1}
+          rowSpan={1}
+          background={featuredStudy.data.lightColor}
+          color={featuredStudy.data.darkColor}
+          padding="0"
+          arrow
+          class="intro-project-card"
+        >
+          <div class="project-copy">
+            <span class="project-emoji">{featuredStudy.data.emoji}</span>
+            <h3>{featuredStudy.data.title}</h3>
+            <p>{featuredStudy.data.tagline ?? featuredStudy.data.blurb}</p>
+          </div>
+          {featuredStudy.data.laptopMockup && (
+            <img
+              src={featuredStudy.data.laptopMockup}
+              alt={featuredStudy.data.title}
+              class="mockup-bleed"
+            />
+          )}
+        </BentoCard>
+      )}
+    </div>
+
+    <div class="steps-grid">
+      {steps.map((step) => (
+        <BentoCard colSpan={1} rowSpan={1} background={step.background} class="step-card">
+          <span class="step-number">{step.number}</span>
+          <span class="step-emoji">{step.emoji}</span>
+          <h2>{step.title}</h2>
+          <p>{step.text}</p>
+        </BentoCard>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .process-intro-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--gap);
+    margin: 8px 0 24px;
+  }
+
+  :global(.intro-project-card) {
+    position: relative;
+    min-height: 0;
+  }
+
+  .project-copy {
+    position: relative;
+    z-index: 2;
+    padding: 24px;
+    max-width: 58%;
+  }
+
+  .project-emoji {
+    display: block;
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+
+  .project-copy h3 {
+    font-size: 16px;
+    margin: 0 0 4px;
+  }
+
+  .project-copy p {
+    font-size: 13px;
+    margin: 0;
+    opacity: 0.85;
+  }
+
+  .mockup-bleed {
+    position: absolute;
+    z-index: 1;
+    width: 58%;
+    max-width: none;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
+    right: -4%;
+    bottom: -8%;
+    transition: transform 0.25s ease;
+  }
+
+  :global(.intro-project-card):hover .mockup-bleed {
+    transform: scale(1.04);
+  }
+
+  :global(.intro-card) h1 {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  :global(.intro-card) p {
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0 0 12px;
+  }
+
+  @media (max-width: 900px) {
+    .process-intro-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap);
+  }
+
+  :global(.step-card) {
+    position: relative;
+    gap: 8px;
+  }
+
+  .step-number {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-family: var(--font-heading);
+    font-size: 22px;
+    opacity: 0.35;
+  }
+
+  .step-emoji {
+    font-size: 30px;
+  }
+
+  :global(.step-card) h2 {
+    font-size: 17px;
+    margin: 4px 0 6px;
+  }
+
+  :global(.step-card) p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .steps-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .steps-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

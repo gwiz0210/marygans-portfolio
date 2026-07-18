@@ -1,17 +1,628 @@
 ---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BentoCard from "../components/BentoCard.astro";
 
+const allStudies = await getCollection("case-studies");
+const studies = allStudies
+  .filter((study) => study.data.draft !== true)
+  .sort((a, b) => {
+    const orderA = a.data.order;
+    const orderB = b.data.order;
+    if (orderA == null && orderB == null) return 0;
+    if (orderA == null) return 1;
+    if (orderB == null) return -1;
+    return orderA - orderB;
+  });
+
+const [featured, ...rest] = studies;
+const others = rest.slice(0, 3);
+
+const mockupTiltOverrides: Record<string, string> = {
+  "fluent-design-system": "mockup-bleed--fluent",
+  "catalog-redesign": "mockup-bleed--catalog",
+  coraway: "mockup-bleed--coraway",
+};
+
+const mockupTiltClass = (study: (typeof studies)[number], i: number) =>
+  mockupTiltOverrides[study.data.slug ?? study.id] ??
+  (i % 2 === 0 ? "mockup-bleed--a" : "mockup-bleed--b");
+
+const posts = [
+  {
+    title: "Your AI Spinner Is Lying to You",
+    blurb: "Designing AI that feels trustworthy before the answer arrives.",
+    date: "Jul 5",
+    url: "https://uxinbeta.substack.com/p/your-ai-spinner-is-lying-to-you",
+    image:
+      "https://substackcdn.com/image/fetch/$s_!Zh7v!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd4cf43a5-c05c-43ec-95f8-34db0a191993_1600x900.png",
+    imageZoom: true,
+  },
+  {
+    title: "What happens when you teach AI to see design patterns?",
+    blurb: "How I built a system that observes UX so I don't have to screenshot forever.",
+    date: "Oct 14, 2025",
+    url: "https://uxinbeta.substack.com/p/what-happens-when-you-teach-ai-to",
+    image:
+      "https://substackcdn.com/image/fetch/$s_!ilHL!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F25ba3b27-01d5-40a6-8d38-228fea51e291_500x500.png",
+  },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Mary Gansallo • Portfolio">
+  <div class="page-shell">
+    <div class="bento-grid">
+      <BentoCard colSpan={2} rowSpan={2} draggable class="intro-card">
+        <div class="intro-top">
+          <div class="avatar">🧑🏾‍💻</div>
+          <p class="status-pill">🟢 Open to new projects</p>
+        </div>
+        <h1>Hi, I'm Mary, a product designer & former frontend dev.</h1>
+        <p class="bio">
+          Based in the DC area, I specialize in design systems, enterprise
+          design, and AI-driven products. I love breaking down complex
+          problems where empathy, data, and creativity intersect.
+        </p>
+      </BentoCard>
+
+      <BentoCard colSpan={1} rowSpan={1} background="var(--accent-yellow)" draggable class="fact-card">
+        <span class="fact-emoji">⚽</span>
+        <p class="fact-text">
+          Airbnb host, soccer player, and real-estate tinkerer outside of
+          design.
+        </p>
+      </BentoCard>
+
+      {featured && (
+        <BentoCard
+          href={`/case-studies/${featured.data.slug ?? featured.id}`}
+          colSpan={1}
+          rowSpan={2}
+          background={featured.data.lightColor}
+          color={featured.data.darkColor}
+          padding="0"
+          draggable
+          arrow
+          class="project-card"
+        >
+          <div class="project-copy">
+            <span class="project-emoji">{featured.data.emoji}</span>
+            <h3>{featured.data.title}</h3>
+            <p>{featured.data.tagline ?? featured.data.blurb}</p>
+          </div>
+          {featured.data.laptopMockup && (
+            <img
+              src={featured.data.laptopMockup}
+              alt={featured.data.title}
+              class:list={["mockup", "mockup-bleed", mockupTiltClass(featured, 0)]}
+            />
+          )}
+        </BentoCard>
+      )}
+
+      <BentoCard
+        href="https://www.linkedin.com/in/mary-gansallo/"
+        external
+        colSpan={1}
+        rowSpan={1}
+        background="var(--accent-blue)"
+        draggable
+        arrow
+        class="link-card"
+      >
+        <span class="link-emoji">💼</span>
+        <p>LinkedIn</p>
+      </BentoCard>
+
+      <div class="project-row">
+        {others.map((study, i) => (
+          <BentoCard
+            href={`/case-studies/${study.data.slug ?? study.id}`}
+            background={study.data.lightColor}
+            color={study.data.darkColor}
+            padding="0"
+            draggable
+            arrow
+            class="project-card"
+          >
+            <div class="project-copy">
+              <span class="project-emoji">{study.data.emoji}</span>
+              <h3>{study.data.title}</h3>
+              <p>{study.data.tagline ?? study.data.blurb}</p>
+            </div>
+            {study.data.laptopMockup && (
+              <img
+                src={study.data.laptopMockup}
+                alt={study.data.title}
+                class:list={["mockup", "mockup-bleed", mockupTiltClass(study, i)]}
+              />
+            )}
+          </BentoCard>
+        ))}
+      </div>
+
+      <BentoCard
+        href="#"
+        colSpan={1}
+        rowSpan={1}
+        background="var(--accent-mint)"
+        draggable
+        arrow
+        class="link-card"
+      >
+        <span class="link-emoji">🎧</span>
+        <p>Spotify</p>
+      </BentoCard>
+
+      <BentoCard href="#" colSpan={1} rowSpan={1} background="var(--accent-lilac)" draggable arrow class="link-card">
+        <span class="link-emoji">🧑‍💻</span>
+        <p>GitHub</p>
+      </BentoCard>
+
+      <BentoCard
+        href="/documents/MaryGans-Resume-Latest.pdf"
+        external
+        colSpan={1}
+        rowSpan={1}
+        background="var(--accent-yellow)"
+        draggable
+        arrow
+        class="link-card"
+      >
+        <span class="link-emoji">📋</span>
+        <p>Resume</p>
+      </BentoCard>
+
+      <BentoCard
+        href="https://calendly.com/mary-gansallo"
+        external
+        colSpan={1}
+        rowSpan={1}
+        background="var(--accent-pink)"
+        draggable
+        arrow
+        class="link-card"
+      >
+        <span class="link-emoji">📅</span>
+        <p>Book a call with me</p>
+      </BentoCard>
+
+      <BentoCard href="/about-me" colSpan={2} rowSpan={1} background="var(--accent-lilac)" draggable arrow class="teaser-card">
+        <span class="teaser-emoji">👋🏽</span>
+        <div>
+          <h3>About me</h3>
+          <p>My background, how I think, and what I'm into outside of work.</p>
+        </div>
+      </BentoCard>
+
+      <BentoCard href="/my-process" colSpan={2} rowSpan={1} background="var(--accent-yellow)" draggable arrow class="teaser-card">
+        <span class="teaser-emoji">🛣️</span>
+        <div>
+          <h3>My process</h3>
+          <p>How I take a project from discovery through release.</p>
+        </div>
+      </BentoCard>
+
+      <div class="posts-row">
+        {posts.map((post) => (
+          <BentoCard
+            href={post.url}
+            external
+            padding="0"
+            arrow
+            class="post-card"
+          >
+            <div class="post-image-wrap">
+              <img
+                src={post.image}
+                alt=""
+                class:list={["post-image", { "post-image--zoom": post.imageZoom }]}
+              />
+            </div>
+            <div class="post-copy">
+              <h3>{post.title}</h3>
+              <p>{post.blurb}</p>
+              <p class="post-date">{post.date} · UX in Beta</p>
+            </div>
+          </BentoCard>
+        ))}
+      </div>
+
+      <BentoCard colSpan={4} rowSpan={1} draggable class="loop-card">
+        <div class="loop-copy">
+          <h3>Shall I keep you in the loop?</h3>
+          <p>
+            Notes on design systems, AI-driven product work, and lessons from
+            the field, over on UX in Beta.
+          </p>
+        </div>
+        <a
+          href="https://uxinbeta.substack.com"
+          target="_blank"
+          rel="noopener"
+          class="loop-cta"
+        >
+          Subscribe <span aria-hidden="true">↗</span>
+        </a>
+      </BentoCard>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 150px;
+    gap: var(--gap);
+    margin-top: 8px;
+  }
+
+  :global(.intro-card) {
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .intro-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .avatar {
+    font-size: 48px;
+    line-height: 1;
+  }
+
+  .status-pill {
+    background: var(--accent-mint);
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin: 0;
+  }
+
+  :global(.intro-card) h1 {
+    font-size: 26px;
+    line-height: 1.25;
+    margin: 4px 0 0;
+  }
+
+  .bio {
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  :global(.fact-card) {
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .fact-emoji {
+    font-size: 28px;
+  }
+
+  .fact-text {
+    margin: 0;
+    font-size: 14px;
+    color: var(--ink);
+  }
+
+  :global(.project-card) {
+    position: relative;
+    min-height: 0;
+  }
+
+  .project-copy {
+    position: relative;
+    z-index: 2;
+    padding: 24px;
+    max-width: 75%;
+  }
+
+  .project-emoji {
+    display: block;
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+
+  .mockup-bleed {
+    position: absolute;
+    z-index: 1;
+    width: 72%;
+    max-width: none;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
+    transform: rotate(var(--tilt));
+    transition: transform 0.25s ease;
+  }
+
+  .mockup-bleed--a {
+    --tilt: 16deg;
+    right: -14%;
+    bottom: -12%;
+  }
+
+  .mockup-bleed--b {
+    --tilt: -14deg;
+    right: -18%;
+    bottom: -16%;
+  }
+
+  .mockup-bleed--fluent {
+    --tilt: 0deg;
+    right: 0%;
+    bottom: -6%;
+  }
+
+  .mockup-bleed--catalog {
+    --tilt: 0deg;
+    right: 9%;
+    bottom: -6%;
+  }
+
+  .mockup-bleed--coraway {
+    --tilt: -11deg;
+    right: -16%;
+    bottom: -9%;
+  }
+
+  :global(.project-card):hover .mockup-bleed {
+    transform: rotate(var(--tilt)) scale(1.04);
+  }
+
+  .project-copy h3 {
+    font-size: 16px;
+    margin: 0 0 4px;
+  }
+
+  .project-copy p {
+    font-size: 13px;
+    margin: 0;
+    opacity: 0.85;
+  }
+
+  :global(.link-card) {
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  :global(.link-card--wide) {
+    flex-direction: row !important;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .link-emoji {
+    font-size: 24px;
+  }
+
+  :global(.link-card) p {
+    margin: 0;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  :global(.teaser-card) {
+    flex-direction: row !important;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .teaser-emoji {
+    font-size: 32px;
+  }
+
+  :global(.teaser-card) h3 {
+    font-size: 16px;
+    margin: 0 0 4px;
+  }
+
+  :global(.teaser-card) p {
+    font-size: 13px;
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  :global(.loop-card) {
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .loop-copy h3 {
+    font-size: 20px;
+    margin: 0 0 6px;
+  }
+
+  .loop-copy p {
+    font-size: 14px;
+    margin: 0;
+    color: var(--ink-soft);
+    max-width: 520px;
+  }
+
+  .loop-cta {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--surface);
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .loop-cta:hover {
+    opacity: 0.9;
+  }
+
+  .posts-row {
+    grid-column: span 4;
+    grid-row: span 3;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gap);
+  }
+
+  :global(.post-card) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post-image-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
+  .post-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .post-image--zoom {
+    transform: scale(1.3);
+    transform-origin: 50% 40%;
+  }
+
+  .post-copy {
+    padding: 20px;
+  }
+
+  .post-copy h3 {
+    font-size: 15px;
+    line-height: 1.35;
+    margin: 0 0 6px;
+  }
+
+  .post-copy p {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .post-date {
+    margin-top: 10px !important;
+    font-size: 12px !important;
+    opacity: 0.7;
+  }
+
+  .project-row {
+    grid-column: span 4;
+    grid-row: span 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap);
+  }
+
+  .project-row :global(.bento-card) {
+    grid-column: auto !important;
+    grid-row: auto !important;
+    height: 100%;
+  }
+
+  @media (max-width: 900px) {
+    .bento-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .project-row {
+      grid-column: span 2;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .posts-row {
+      grid-column: span 2;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .bento-grid {
+      grid-template-columns: 1fr;
+      grid-auto-rows: auto;
+    }
+
+    .bento-grid :global(.bento-card) {
+      grid-row: auto;
+      min-height: 160px;
+    }
+
+    .project-row {
+      grid-column: span 1;
+      grid-row: auto;
+      grid-template-columns: 1fr;
+    }
+
+    .project-row :global(.bento-card) {
+      height: auto;
+      min-height: 220px;
+    }
+
+    .posts-row {
+      grid-column: span 1;
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  function getDirectChild(container: Element, el: Element | null): Element | null {
+    while (el && el.parentElement !== container) {
+      el = el.parentElement;
+    }
+    return el;
+  }
+
+  function initSortable(container: Element | null) {
+    if (!container) return;
+    let draggingEl: Element | null = null;
+
+    container.addEventListener("dragstart", (e) => {
+      const card = getDirectChild(container, e.target as Element);
+      if (!card || card.getAttribute("draggable") !== "true") return;
+      draggingEl = card;
+      (e as DragEvent).dataTransfer?.setData("text/plain", "");
+      if ((e as DragEvent).dataTransfer) (e as DragEvent).dataTransfer!.effectAllowed = "move";
+      card.classList.add("is-dragging");
+    });
+
+    container.addEventListener("dragend", () => {
+      draggingEl?.classList.remove("is-dragging");
+      draggingEl = null;
+    });
+
+    container.addEventListener("dragover", (e) => {
+      if (!draggingEl) return;
+      e.preventDefault();
+    });
+
+    container.addEventListener("drop", (e) => {
+      if (!draggingEl) return;
+      e.preventDefault();
+      const target = getDirectChild(container, e.target as Element);
+      if (!target || target === draggingEl || target.getAttribute("draggable") !== "true") return;
+
+      const placeholder = document.createComment("");
+      draggingEl.before(placeholder);
+      target.replaceWith(draggingEl);
+      placeholder.replaceWith(target);
+    });
+  }
+
+  initSortable(document.querySelector(".bento-grid"));
+  document.querySelectorAll(".project-row").forEach(initSortable);
+</script>

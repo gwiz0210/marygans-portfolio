@@ -1,0 +1,73 @@
+---
+const socials = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/mary-gansallo/" },
+  { label: "GitHub", href: "#" },
+  { label: "Dribbble", href: "#" },
+];
+---
+
+<footer class="footer" id="contact">
+  <div class="footer-inner card">
+    <div class="footer-text">
+      <p class="made-with">Made with ♥ · © 2026 Mary Gansallo</p>
+      <p class="tagline">Design systems // Enterprise design // AI-driven products 🎈</p>
+    </div>
+    <div class="footer-links">
+      {
+        socials.map((social) => (
+          <a href={social.href} target="_blank" rel="noopener" class="social-link">
+            {social.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    max-width: 1180px;
+    margin: 40px auto 0;
+    padding: 0 24px 88px;
+  }
+
+  .footer-inner {
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .made-with {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .tagline {
+    margin: 4px 0 0;
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+  }
+
+  .social-link {
+    color: var(--ink-soft);
+  }
+
+  .social-link:hover {
+    color: var(--ink);
+  }
+
+  @media (max-width: 640px) {
+    .footer-inner {
+      padding: 24px;
+    }
+  }
+</style>

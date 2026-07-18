@@ -1,0 +1,168 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BentoCard from "../components/BentoCard.astro";
+
+const allStudies = await getCollection("case-studies");
+const studies = allStudies
+  .filter((study) => study.data.draft !== true)
+  .sort((a, b) => {
+    const orderA = a.data.order;
+    const orderB = b.data.order;
+    if (orderA == null && orderB == null) return 0;
+    if (orderA == null) return 1;
+    if (orderB == null) return -1;
+    return orderA - orderB;
+  });
+
+const mockupTiltOverrides: Record<string, string> = {
+  "fluent-design-system": "mockup-bleed--fluent",
+  "catalog-redesign": "mockup-bleed--catalog",
+  coraway: "mockup-bleed--coraway",
+};
+
+const mockupTiltClass = (study: (typeof studies)[number], i: number) =>
+  mockupTiltOverrides[study.data.slug ?? study.id] ??
+  (i % 2 === 0 ? "mockup-bleed--a" : "mockup-bleed--b");
+---
+
+<BaseLayout title="Work - Mary Gansallo" description="Case studies and projects by Mary Gansallo.">
+  <div class="page-shell">
+    <h1 class="page-title">Selected work</h1>
+    <div class="work-grid">
+      {studies.map((study, i) => (
+        <BentoCard
+          href={`/case-studies/${study.data.slug ?? study.id}`}
+          colSpan={1}
+          rowSpan={1}
+          background={study.data.lightColor}
+          color={study.data.darkColor}
+          padding="0"
+          class="project-card"
+        >
+          <div class="project-copy">
+            <span class="project-emoji">{study.data.emoji}</span>
+            <h3>{study.data.title}</h3>
+            <p>{study.data.tagline ?? study.data.blurb}</p>
+            {study.data.role && <p class="role">{study.data.role}</p>}
+          </div>
+          {study.data.laptopMockup && (
+            <img
+              src={study.data.laptopMockup}
+              alt={study.data.title}
+              class:list={["mockup-bleed", mockupTiltClass(study, i)]}
+            />
+          )}
+        </BentoCard>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-title {
+    font-size: 32px;
+    margin: 8px 0 20px;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 340px;
+    gap: var(--gap);
+  }
+
+  :global(.project-card) {
+    position: relative;
+    min-height: 0;
+  }
+
+  .project-copy {
+    position: relative;
+    z-index: 2;
+    padding: 22px;
+    max-width: 75%;
+  }
+
+  .project-emoji {
+    display: block;
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+
+  .mockup-bleed {
+    position: absolute;
+    z-index: 1;
+    width: 68%;
+    max-width: none;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
+    transform: rotate(var(--tilt));
+    transition: transform 0.25s ease;
+  }
+
+  .mockup-bleed--a {
+    --tilt: 16deg;
+    right: -14%;
+    bottom: -12%;
+  }
+
+  .mockup-bleed--b {
+    --tilt: -14deg;
+    right: -18%;
+    bottom: -16%;
+  }
+
+  .mockup-bleed--fluent {
+    --tilt: 0deg;
+    right: 0%;
+    bottom: -6%;
+  }
+
+  .mockup-bleed--catalog {
+    --tilt: 0deg;
+    right: 9%;
+    bottom: -6%;
+  }
+
+  .mockup-bleed--coraway {
+    --tilt: -11deg;
+    right: -16%;
+    bottom: -9%;
+  }
+
+  :global(.project-card):hover .mockup-bleed {
+    transform: rotate(var(--tilt)) scale(1.04);
+  }
+
+  .project-copy h3 {
+    font-size: 17px;
+    margin: 0 0 4px;
+  }
+
+  .project-copy p {
+    font-size: 13px;
+    margin: 0;
+    opacity: 0.85;
+  }
+
+  .project-copy .role {
+    margin-top: 6px;
+    font-weight: 600;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 900px) {
+    .work-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .work-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
