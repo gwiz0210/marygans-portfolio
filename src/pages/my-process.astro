@@ -68,38 +68,35 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
       <div class="tools-inline">
         <h2>Tools I Reach For</h2>
-        <p class="tools-subtitle">A snapshot of the stack I use across product, design, engineering, and AI work.</p>
-        <div class="tools-table-wrap">
-          <table class="tools-table" aria-label="Tools I Reach For">
-            <thead>
-              <tr>
-                <th scope="col">Product</th>
-                <th scope="col">Design</th>
-                <th scope="col">Engineering</th>
-                <th scope="col">AI</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Figma</td>
-                <td>FigJam</td>
-                <td>React</td>
-                <td>Claude</td>
-              </tr>
-              <tr>
-                <td>VS Code</td>
-                <td>Storybook</td>
-                <td>TypeScript</td>
-                <td>GitHub Copilot</td>
-              </tr>
-              <tr>
-                <td>Azure DevOps</td>
-                <td>Miro</td>
-                <td>MCP</td>
-                <td>ChatGPT</td>
-              </tr>
-            </tbody>
-          </table>
+        <p class="tools-subtitle">A snapshot of the stack I use across design, engineering, and AI work.</p>
+        <div class="tools-columns">
+          <div class="tools-column">
+            <h3>Design</h3>
+            <ul>
+              <li>Figma</li>
+              <li>FigJam</li>
+              <li>Miro</li>
+            </ul>
+          </div>
+          <div class="tools-column">
+            <h3>Engineering</h3>
+            <ul>
+              <li>VS Code</li>
+              <li>React</li>
+              <li>TypeScript</li>
+              <li>Storybook</li>
+              <li>Azure DevOps</li>
+            </ul>
+          </div>
+          <div class="tools-column">
+            <h3>AI</h3>
+            <ul>
+              <li>Claude</li>
+              <li>GitHub Copilot</li>
+              <li>ChatGPT</li>
+              <li>MCP</li>
+            </ul>
+          </div>
         </div>
       </div>
     </article>
@@ -166,37 +163,36 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     line-height: 1.5;
   }
 
-  .tools-table-wrap {
-    overflow-x: auto;
-  }
-
-  .tools-table {
-    width: 100%;
-    border-collapse: collapse;
+  .tools-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
     border-top: 1px solid rgba(0, 0, 0, 0.14);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+    padding-top: 20px;
   }
 
-  .tools-table th,
-  .tools-table td {
-    text-align: left;
-    padding: 16px 0;
+  .tools-column h3 {
+    margin: 0 0 12px;
     font-size: 20px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-weight: 700;
     color: var(--ink);
   }
 
-  .tools-table th {
-    font-weight: 700;
+  .tools-column ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
-  .tools-table tbody tr:last-child td {
+  .tools-column li {
+    padding: 14px 0;
+    font-size: 18px;
+    color: var(--ink);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .tools-column li:last-child {
     border-bottom: 0;
-  }
-
-  .tools-table th:not(:last-child),
-  .tools-table td:not(:last-child) {
-    padding-right: 20px;
   }
 
   @media (max-width: 900px) {
@@ -216,20 +212,31 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       font-size: 30px;
     }
 
-    .tools-table th,
-    .tools-table td {
+    .tools-columns {
+      gap: 20px;
+    }
+
+    .tools-column h3 {
       font-size: 18px;
+    }
+
+    .tools-column li {
+      font-size: 16px;
     }
   }
 
   @media (max-width: 640px) {
-    .tools-table {
-      min-width: 640px;
+    .tools-columns {
+      grid-template-columns: 1fr;
+      gap: 4px;
     }
 
-    .tools-table th,
-    .tools-table td {
-      padding: 14px 0;
+    .tools-column {
+      padding-bottom: 16px;
+    }
+
+    .tools-column li {
+      padding: 12px 0;
     }
   }
 </style>

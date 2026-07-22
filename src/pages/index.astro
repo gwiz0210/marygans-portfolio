@@ -130,11 +130,15 @@ const posts = [
 
       <div class="about-row">
         <BentoCard href="/about-me" colSpan={2} rowSpan={2} draggable arrow class="intro-card">
-          <div class="intro-top">
-            <div class="avatar">🧑🏾‍💻</div>
-            <p class="status-pill">🟢 Open to new projects</p>
+          <p class="status-pill">🟢 Open to new projects</p>
+          <div class="intro-heading">
+            <img
+              src="/images/44DBC6E8-F292-484C-B7B5-DBDCB6D9EF69.jpeg"
+              alt="Mary Gansallo"
+              class="avatar"
+            />
+            <h1>Hi, I'm Mary, a product designer & frontend dev.</h1>
           </div>
-          <h1>Hi, I'm Mary, a product designer & frontend dev.</h1>
           <p class="bio">
             Based in the DC area, I specialize in design systems, enterprise
             design, and AI-driven products. I love breaking down complex
@@ -160,32 +164,14 @@ const posts = [
           arrow
           class="link-card"
         >
-          <span class="link-emoji">💼</span>
+          <span class="link-icon-wrap" aria-hidden="true">
+            <img src="/images/linkedIn-logo.svg" alt="" class="brand-icon" />
+          </span>
           <p>LinkedIn</p>
         </BentoCard>
 
         <BentoCard
-          href="#"
-          colSpan={1}
-          rowSpan={1}
-          background="var(--accent-mint)"
-          draggable
-          arrow
-          class="link-card"
-        >
-          <span class="link-emoji">🎧</span>
-          <p>Spotify</p>
-        </BentoCard>
-
-        <BentoCard href="#" colSpan={1} rowSpan={1} background="var(--accent-lilac)" draggable arrow class="link-card">
-          <span class="link-emoji">🧑‍💻</span>
-          <p>GitHub</p>
-        </BentoCard>
-      </div>
-
-      <div class="quick-links-row">
-        <BentoCard
-          href="/documents/MaryGans-Resume-Latest.pdf"
+          href="/documents/Mary-Gansallo-Resume.pdf"
           external
           colSpan={1}
           rowSpan={1}
@@ -196,6 +182,41 @@ const posts = [
         >
           <span class="link-emoji">📋</span>
           <p>Resume</p>
+        </BentoCard>
+
+        <BentoCard
+          href="https://github.com/gwiz0210"
+          external
+          colSpan={1}
+          rowSpan={1}
+          background="var(--accent-lilac)"
+          draggable
+          arrow
+          class="link-card"
+        >
+          <span class="link-icon-wrap" aria-hidden="true">
+            <img src="/images/github-logo.svg" alt="" class="brand-icon" />
+          </span>
+          <p>GitHub</p>
+        </BentoCard>
+      </div>
+
+      <div class="quick-links-row">
+        <BentoCard
+          href="https://open.spotify.com/playlist/37i9dQZF1E4uYtkbmCDcgE?si=nizOA58sSayR6ESQUgFg_g"
+          external
+          colSpan={1}
+          rowSpan={1}
+          background="var(--accent-mint)"
+          draggable
+          arrow
+          class="link-card"
+        >
+          <span class="link-icon-wrap" aria-hidden="true">
+            <img src="/images/spotify-logo.svg" alt="" class="brand-icon" />
+          </span>
+          <p>Spotify</p>
+          <p class="link-subtext">What I've been listening to these days</p>
         </BentoCard>
 
         <BentoCard
@@ -212,12 +233,10 @@ const posts = [
           <p>Book a call with me</p>
         </BentoCard>
 
-        <BentoCard href="/my-process" colSpan={1} rowSpan={1} background="var(--accent-yellow)" draggable arrow class="teaser-card">
-          <span class="teaser-emoji">🛣️</span>
-          <div>
-            <h3>My approach</h3>
-            <p>How I take a project from discovery through release.</p>
-          </div>
+        <BentoCard href="/my-process" colSpan={1} rowSpan={1} background="var(--accent-yellow)" draggable arrow class="link-card">
+          <span class="link-emoji">🛣️</span>
+          <p>My approach</p>
+          <p class="link-subtext">How I take a project from discovery through release.</p>
         </BentoCard>
       </div>
 
@@ -248,11 +267,9 @@ const posts = [
         ))}
       </div>
 
-      <h2 class="section-heading">Connect</h2>
-
       <BentoCard colSpan={4} rowSpan={1} draggable class="loop-card">
         <div class="loop-copy">
-          <h3>Shall I keep you in the loop?</h3>
+          <h3>Want to stay in the loop?</h3>
           <p>
             Notes on design systems, AI-driven product work, and lessons from
             the field, over on UX in Beta.
@@ -401,18 +418,23 @@ const posts = [
     gap: 12px;
   }
 
-  .intro-top {
+  .intro-heading {
     display: flex;
     align-items: center;
     gap: 14px;
   }
 
   .avatar {
-    font-size: 48px;
-    line-height: 1;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
   }
 
   .status-pill {
+    display: inline-flex;
+    align-self: flex-start;
     background: var(--accent-mint);
     color: var(--ink);
     font-size: 13px;
@@ -425,7 +447,7 @@ const posts = [
   :global(.intro-card) h1 {
     font-size: 26px;
     line-height: 1.25;
-    margin: 4px 0 0;
+    margin: 0;
   }
 
   .bio {
@@ -581,6 +603,10 @@ const posts = [
     color: var(--ink);
   }
 
+  .section-heading:not(:first-child) {
+    margin-top: 28px;
+  }
+
   :global(.link-card) {
     justify-content: flex-start;
     align-items: flex-start;
@@ -593,8 +619,24 @@ const posts = [
     gap: 14px;
   }
 
+  .link-icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+  }
+
+  .brand-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
   .link-emoji {
+    display: block;
     font-size: 24px;
+    line-height: 1;
   }
 
   :global(.link-card) p {
@@ -603,24 +645,10 @@ const posts = [
     font-size: 14px;
   }
 
-  :global(.teaser-card) {
-    flex-direction: row !important;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .teaser-emoji {
-    font-size: 32px;
-  }
-
-  :global(.teaser-card) h3 {
-    font-size: 16px;
-    margin: 0 0 4px;
-  }
-
-  :global(.teaser-card) p {
+  :global(.link-card) .link-subtext {
+    margin-top: 2px;
+    font-weight: 400;
     font-size: 13px;
-    margin: 0;
     color: var(--ink-soft);
   }
 
@@ -820,12 +848,11 @@ const posts = [
     .project-row {
       grid-row: auto;
       grid-template-columns: 1fr;
-      grid-auto-rows: auto;
+      grid-auto-rows: 320px;
     }
 
-    .project-row :global(.bento-card) {
-      height: auto;
-      min-height: 220px;
+    .mockup-bleed--coraway {
+      --mockup-width: 50%;
     }
 
     .posts-row {

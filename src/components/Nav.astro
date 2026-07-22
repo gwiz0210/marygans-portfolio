@@ -6,10 +6,9 @@ const isActive = (href: string) =>
 const links = [
   { href: "/", label: "home" },
   { href: "/work", label: "work" },
-  { href: "/about-me", label: "about" },
+  { href: "/about-me", label: "about me" },
   { href: "/my-process", label: "approach" },
-  { href: "/documents/MaryGans-Resume-Latest.pdf", label: "resume", external: true },
-  { href: "#contact", label: "contact" },
+  { href: "/documents/Mary-Gansallo-Resume.pdf", label: "resume", external: true },
 ];
 ---
 
@@ -35,10 +34,9 @@ const links = [
     </nav>
 
     <div class="nav-actions" style="display:none">
-      <a href="/documents/MaryGans-Resume-Latest.pdf" target="_blank" rel="noopener" class="nav-link">
+      <a href="/documents/Mary-Gansallo-Resume.pdf" target="_blank" rel="noopener" class="nav-link">
         resume
       </a>
-      <a href="#contact" class="nav-link nav-link--emphasis">Contact</a>
     </div>
   </header>
 </div>
@@ -122,13 +120,26 @@ const links = [
   @media (max-width: 720px) {
     .nav {
       flex-wrap: wrap;
+      justify-content: center;
       padding-top: 20px;
     }
 
     .pills {
+      position: static;
+      left: auto;
+      transform: none;
       order: 3;
       width: 100%;
       justify-content: center;
+      flex-wrap: nowrap;
+      gap: 0;
+      padding: 5px;
+    }
+
+    .pill {
+      padding: 7px 6px;
+      font-size: 11px;
+      white-space: nowrap;
     }
 
     .nav-actions {
