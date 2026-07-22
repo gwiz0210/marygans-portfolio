@@ -17,13 +17,7 @@ const studies = allStudies
   });
 
 const studyBySlug = new Map(studies.map((study) => [study.data.slug ?? study.id, study]));
-const [aiDashboardSlug, perceptionSlug, catalogRedesignSlug, fluentDesignSlug, corawaySlug] = FEATURED_PROJECT_SLUGS;
-const aiDashboardStudy = studyBySlug.get(aiDashboardSlug);
-const perceptionStudy = studyBySlug.get(perceptionSlug);
-const identityAccessGraphStudy = studyBySlug.get("identity-access-graph");
-const corawayStudy = studyBySlug.get(corawaySlug);
-const catalogRedesignStudy = studyBySlug.get(catalogRedesignSlug);
-const fluentDesignStudy = studyBySlug.get(fluentDesignSlug);
+const featuredStudies = FEATURED_PROJECT_SLUGS.map(slug => studyBySlug.get(slug)).filter(Boolean);
 
 const mockupTiltClass = (study: (typeof studies)[number], i: number) =>
   PROJECT_MOCKUP_TILT_OVERRIDES[study.data.slug ?? study.id] ??
@@ -69,7 +63,7 @@ const posts = [
             <span data-delete-delay="3000" data-delay="150" data-words="design,develop" data-colors="orange" class="typer">design</span><span id="first-typer" data-owner="first-typer" class="cursor"></span>&nbsp;AI experiences with empathy & expertise.
           </div>
           <div class="personal-tagline subtitle">
-            Agentic UX // Enterprise systems // AI-driven products 🎈<br /><br />&lt; Former frontend dev /&gt;
+            Agentic UX // Enterprise systems // AI-driven products 🎈<br /><br />&lt; Frontend dev /&gt;
           </div>
         </div>
       </div>
@@ -79,163 +73,57 @@ const posts = [
       <h2 class="section-heading">Featured Projects</h2>
 
       <div class="project-row project-row--top">
-        {aiDashboardStudy && (
+        {featuredStudies.slice(0, 3).map((study, i) => (
           <BentoCard
-            href={`/case-studies/${aiDashboardStudy.data.slug ?? aiDashboardStudy.id}`}
-            background={aiDashboardStudy.data.lightColor}
-            color={aiDashboardStudy.data.darkColor}
+            href={`/case-studies/${study.data.slug ?? study.id}`}
+            background={study.data.lightColor}
+            color={study.data.darkColor}
             padding="0"
             draggable
             arrow
             class="project-card"
           >
             <div class="project-copy">
-              <span class="project-emoji">{aiDashboardStudy.data.emoji}</span>
-              <h3>{aiDashboardStudy.data.title}</h3>
-              <p>{aiDashboardStudy.data.tagline ?? aiDashboardStudy.data.blurb}</p>
+              <span class="project-emoji">{study.data.emoji}</span>
+              <h3>{study.data.title}</h3>
+              <p>{study.data.tagline ?? study.data.blurb}</p>
             </div>
-            {aiDashboardStudy.data.laptopMockup && (
+            {study.data.laptopMockup && (
               <img
-                src={aiDashboardStudy.data.laptopMockup}
-                alt={aiDashboardStudy.data.title}
-                class:list={["mockup", "mockup-bleed", mockupTiltClass(aiDashboardStudy, 0)]}
+                src={study.data.laptopMockup}
+                alt={study.data.title}
+                class:list={["mockup", "mockup-bleed", mockupTiltClass(study, i)]}
               />
             )}
           </BentoCard>
-        )}
-
-        {perceptionStudy && (
-          <BentoCard
-            href={`/case-studies/${perceptionStudy.data.slug ?? perceptionStudy.id}`}
-            background={perceptionStudy.data.lightColor}
-            color={perceptionStudy.data.darkColor}
-            padding="0"
-            draggable
-            arrow
-            class="project-card project-card--perception"
-          >
-            <div class="project-copy">
-              <span class="project-emoji">{perceptionStudy.data.emoji}</span>
-              <h3>{perceptionStudy.data.title}</h3>
-              <p>{perceptionStudy.data.tagline ?? perceptionStudy.data.blurb}</p>
-            </div>
-            {perceptionStudy.data.laptopMockup && (
-              <img
-                src={perceptionStudy.data.laptopMockup}
-                alt={perceptionStudy.data.title}
-                class:list={["mockup", "mockup-bleed", mockupTiltClass(perceptionStudy, 0)]}
-              />
-            )}
-          </BentoCard>
-        )}
-
-        {catalogRedesignStudy && (
-          <BentoCard
-            href={`/case-studies/${catalogRedesignStudy.data.slug ?? catalogRedesignStudy.id}`}
-            background={catalogRedesignStudy.data.lightColor}
-            color={catalogRedesignStudy.data.darkColor}
-            padding="0"
-            draggable
-            arrow
-            class="project-card"
-          >
-            <div class="project-copy">
-              <span class="project-emoji">{catalogRedesignStudy.data.emoji}</span>
-              <h3>{catalogRedesignStudy.data.title}</h3>
-              <p>{catalogRedesignStudy.data.tagline ?? catalogRedesignStudy.data.blurb}</p>
-            </div>
-            {catalogRedesignStudy.data.laptopMockup && (
-              <img
-                src={catalogRedesignStudy.data.laptopMockup}
-                alt={catalogRedesignStudy.data.title}
-                class:list={["mockup", "mockup-bleed", mockupTiltClass(catalogRedesignStudy, 1)]}
-              />
-            )}
-          </BentoCard>
-        )}
+        ))}
       </div>
 
       <div class="project-row project-row--second">
-        {fluentDesignStudy && (
+        {featuredStudies.slice(3).map((study, i) => (
           <BentoCard
-            href={`/case-studies/${fluentDesignStudy.data.slug ?? fluentDesignStudy.id}`}
-            background={fluentDesignStudy.data.lightColor}
-            color={fluentDesignStudy.data.darkColor}
+            href={`/case-studies/${study.data.slug ?? study.id}`}
+            background={study.data.lightColor}
+            color={study.data.darkColor}
             padding="0"
             draggable
             arrow
             class="project-card"
           >
             <div class="project-copy">
-              <span class="project-emoji">{fluentDesignStudy.data.emoji}</span>
-              <h3>{fluentDesignStudy.data.title}</h3>
-              <p>{fluentDesignStudy.data.tagline ?? fluentDesignStudy.data.blurb}</p>
+              <span class="project-emoji">{study.data.emoji}</span>
+              <h3>{study.data.title}</h3>
+              <p>{study.data.tagline ?? study.data.blurb}</p>
             </div>
-            {fluentDesignStudy.data.laptopMockup && (
+            {study.data.laptopMockup && (
               <img
-                src={fluentDesignStudy.data.laptopMockup}
-                alt={fluentDesignStudy.data.title}
-                class:list={["mockup", "mockup-bleed", mockupTiltClass(fluentDesignStudy, 1)]}
+                src={study.data.laptopMockup}
+                alt={study.data.title}
+                class:list={["mockup", "mockup-bleed", mockupTiltClass(study, i + 3)]}
               />
             )}
           </BentoCard>
-        )}
-
-        {identityAccessGraphStudy ? (
-          <BentoCard
-            href={`/case-studies/${identityAccessGraphStudy.data.slug ?? identityAccessGraphStudy.id}`}
-            background={identityAccessGraphStudy.data.lightColor}
-            color={identityAccessGraphStudy.data.darkColor}
-            padding="0"
-            draggable
-            arrow
-            class="project-card"
-          >
-            <div class="project-copy">
-              <span class="project-emoji">{identityAccessGraphStudy.data.emoji}</span>
-              <h3>{identityAccessGraphStudy.data.title}</h3>
-              <p>{identityAccessGraphStudy.data.tagline ?? identityAccessGraphStudy.data.blurb}</p>
-            </div>
-            {identityAccessGraphStudy.data.laptopMockup && (
-              <img
-                src={identityAccessGraphStudy.data.laptopMockup}
-                alt={identityAccessGraphStudy.data.title}
-                class:list={["mockup", "mockup-bleed", mockupTiltClass(identityAccessGraphStudy, 1)]}
-              />
-            )}
-          </BentoCard>
-        ) : (
-          <BentoCard background="var(--accent-blue)" draggable class="placeholder-card">
-            <span class="project-emoji">🔐</span>
-            <h3>Identity Access Graph</h3>
-            <p>Placeholder for upcoming case study.</p>
-          </BentoCard>
-        )}
-
-        {corawayStudy && (
-          <BentoCard
-            href={`/case-studies/${corawayStudy.data.slug ?? corawayStudy.id}`}
-            background={corawayStudy.data.lightColor}
-            color={corawayStudy.data.darkColor}
-            padding="0"
-            draggable
-            arrow
-            class="project-card"
-          >
-            <div class="project-copy">
-              <span class="project-emoji">{corawayStudy.data.emoji}</span>
-              <h3>{corawayStudy.data.title}</h3>
-              <p>{corawayStudy.data.tagline ?? corawayStudy.data.blurb}</p>
-            </div>
-            {corawayStudy.data.laptopMockup && (
-              <img
-                src={corawayStudy.data.laptopMockup}
-                alt={corawayStudy.data.title}
-                class:list={["mockup", "mockup-bleed", mockupTiltClass(corawayStudy, 2)]}
-              />
-            )}
-          </BentoCard>
-        )}
+        ))}
       </div>
 
       <h2 class="section-heading">A bit about me</h2>
@@ -246,7 +134,7 @@ const posts = [
             <div class="avatar">🧑🏾‍💻</div>
             <p class="status-pill">🟢 Open to new projects</p>
           </div>
-          <h1>Hi, I'm Mary, a product designer & former frontend dev.</h1>
+          <h1>Hi, I'm Mary, a product designer & frontend dev.</h1>
           <p class="bio">
             Based in the DC area, I specialize in design systems, enterprise
             design, and AI-driven products. I love breaking down complex
@@ -272,7 +160,7 @@ const posts = [
           arrow
           class="link-card"
         >
-          <span class="link-emoji"><img src="/images/LinkedIn.svg" alt="LinkedIn" width="24" height="24" style="display:block;" /></span>
+          <span class="link-emoji">💼</span>
           <p>LinkedIn</p>
         </BentoCard>
 

@@ -1,6 +1,6 @@
 export const FEATURED_PROJECT_SLUGS = [
   "perception",
-  "identity-access-graph",
+  "agent-identity-graph",
   "ai-dashboard",
   "catalog-redesign",
   "fluent-design-system",
@@ -13,5 +13,5 @@ export const PROJECT_MOCKUP_TILT_OVERRIDES: Record<string, string> = {
   coraway: "mockup-bleed--coraway",
   "ai-dashboard": "mockup-bleed--ai-dashboard",
   perception: "mockup-bleed--perception",
-  "identity-access-graph": "mockup-bleed--identity-access-graph",
+  "agent-identity-graph": "mockup-bleed--identity-access-graph",
 };
