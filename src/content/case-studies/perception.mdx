@@ -1,0 +1,149 @@
+---
+title: "Perception"
+slug: "perception"
+role: "Senior Product Designer"
+team: "Microsoft Security"
+time: "2025 - 2026"
+tools: "Figma, FigJam, prototyping, product strategy"
+blurb: "Designing a human–AI collaboration experience where autonomous agents continuously monitor identity risk, execute delegated tasks, and generate shared artifacts for human review and approval."
+tagline: "Continuous human–AI collaboration for enterprise security"
+overview: "Perception is an agentic security platform designed around continuous human–AI collaboration. Autonomous agents monitor the identity environment, investigate emerging risks, and execute delegated actions within approved permissions. When decisions require business context or human judgment, agents generate shared artifacts that administrators can review, refine, and approve before remediation. This collaboration model enables security teams to move faster while maintaining transparency, trust, and control."
+emoji: "🧠"
+laptopMockup: "/images/perception/perception-landing.png"
+lightColor: "rgba(255, 214, 219, 0.55)"
+pageBackgroundColor: "rgba(255, 214, 219, 0.45)"
+darkColor: "#7a2231"
+order: 3
+archived: false
+draft: false
+---
+
+<figure style="margin: 0; text-align: center;">
+  <div style="border-radius:4px; overflow:hidden; aspect-ratio:16/8.4;">
+    <img src="/images/perception/perception-landing.png" alt="Perception landing view" style="width:100%; height:100%; display:block; object-fit:cover; object-position:center top;" />
+  </div>
+</figure>
+
+<h2>The Challenge</h2>
+
+<p>
+Security administrators spent too much time switching between disconnected tools to investigate alerts, understand impact, and coordinate remediation.
+</p>
+
+<p>
+The result was slower response times, fragmented context, and increased risk when making high-impact security decisions.
+</p>
+
+<h2>Project Goal</h2>
+
+<p>
+Design a continuous human–AI workflow where autonomous agents investigate identity risk, execute delegated tasks, and collaborate with administrators through shared artifacts.
+</p>
+
+
+## Human + AI Collaboration
+
+Perception introduces a collaborative operating model for enterprise security. Autonomous agents continuously monitor the environment, investigate emerging risks, and execute delegated actions within approved permissions. When judgment is required, they generate shared artifacts that administrators can review, refine, and approve before remediation.
+
+
+### AI Investigation
+
+AI analyzes identity relationships, policy dependencies, and security signals to surface meaningful patterns across the environment.
+
+<figure style="margin: 0; text-align: center;">
+  <div style="border-radius:4px; overflow:hidden; aspect-ratio:16/8.4;">
+      <img src="/images/perception/perception-cropped-highlighted.png" alt="Perception landing highlights" style="width:100%; height:100%; display:block; object-fit:cover; object-position:center;" />
+  </div>
+</figure>
+
+<p>
+The user can click the Review button to move from AI investigation into the human review stage.
+</p>
+
+<p>
+That handoff keeps the recommendation, supporting signals, and surrounding context intact so administrators can evaluate what needs attention before taking action.
+</p>
+
+<figure style="margin: 0 auto; text-align: center; max-width: 420px;">
+  <div style="border-radius:4px; overflow:hidden; background:#f6edf0;">
+      <img src="/images/perception/perception-needs-your-attention.png" alt="Perception needs your attention review entry point" style="width:100%; height:auto; display:block;" />
+  </div>
+</figure>
+
+### Zero Trust Agent Summary of Findings
+
+The Zero Trust agent summarizes the detected policy gap, explains why it matters, and provides a recommendation for the safest next step.
+
+<figure style="margin: 0; text-align: center;">
+  <div style="border-radius:4px; overflow:hidden; aspect-ratio:16/8.4;">
+      <img src="/images/perception/perception-full-screen.png" alt="Perception full-screen overview" style="width:100%; height:100%; display:block; object-fit:cover; object-position:center top;" />
+  </div>
+</figure>
+
+### Human Audit
+
+Administrators can inspect the Zero Trust agent's work, review the evidence and relationships behind the recommendation, and verify that the reasoning aligns with organizational policy before moving forward.
+
+<figure style="margin: 0; text-align: center;">
+  <div style="border-radius:4px; overflow:hidden; aspect-ratio:16/8.4;">
+    <img src="/images/perception/perception-graph.png" alt="Perception activity graph" style="width:100%; height:100%; display:block; object-fit:cover; object-position:center top;" />
+  </div>
+</figure>
+
+### Shared Decision Making
+
+Once the recommendation has been reviewed, Perception shifts from analysis to action by framing remediation as a shared decision.
+
+The system proposes the best next step, estimates the likely impact, and gives administrators clear options before anything changes in the environment.
+
+<figure style="margin: 0; text-align: center;">
+  <div style="border-radius:4px; overflow:hidden; aspect-ratio:16/8.4;">
+    <img src="/images/perception/perception-select-fix-policy.png" alt="Perception policy fix selection" style="width:100%; height:100%; display:block; object-fit:cover; object-position:center top;" />
+  </div>
+</figure>
+
+<p>
+From there, administrators can follow the suggested path or adjust the approach based on operational context, policy requirements, or risk tolerance.
+</p>
+
+<figure style="margin: 0; text-align: center;">
+  <div style="border-radius:4px; overflow:hidden; aspect-ratio:16/8.4;">
+    <img src="/images/perception/perception-select.png" alt="Perception selection flow" style="width:100%; height:100%; display:block; object-fit:cover; object-position:center top;" />
+  </div>
+</figure>
+
+### Verification Loop
+
+After remediation, AI continuously monitors the environment and reports whether the intended security outcome was achieved.
+
+<figure style="margin: 0; text-align: center;">
+  <div style="border-radius:4px; overflow:hidden; aspect-ratio:16/8.4;">
+    <img src="/images/perception/perception-fix-policy.png" alt="Perception fix policy confirmation" style="width:100%; height:100%; display:block; object-fit:cover; object-position:center top;" />
+  </div>
+</figure>
+
+<h2>End-to-End Demo</h2>
+
+<figure style="margin: 0; text-align: center;">
+  <div style="border-radius:4px; overflow:hidden; aspect-ratio:16/8.4; background:#000;">
+    <video
+      src="/images/perception/perception-demo-v3-with-sankey-activity-graph.mp4"
+      controls
+      playsinline
+      style="width:100%; height:100%; display:block; object-fit:cover;"
+    ></video>
+  </div>
+</figure>
+
+<h2>Outcome</h2>
+
+<p>
+Perception established a workflow pattern that connected investigation, decision support, and remediation execution in one coherent experience.
+</p>
+
+<ul>
+<li>Reduced handoffs between investigation and action</li>
+<li>Increased confidence in remediation choices</li>
+<li>Improved explainability for security decisions</li>
+<li>Created a reusable pattern for agentic security tasks</li>
+</ul>

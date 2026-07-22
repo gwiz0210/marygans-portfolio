@@ -17,13 +17,20 @@ archived: false
 draft: false
 ---
 
+<figure style="margin: 0; text-align: center;">
+  <div style="border-radius:4px; overflow:hidden; aspect-ratio:16/8.4;">
+    <img src="/images/ai-dashboard-mockup.png" alt="AI Dashboard mockup" style="width:100%; height:100%; display:block; object-fit:contain; object-position:center top;" />
+  </div>
+  <figcaption style="margin-top:0.5rem; color:#64748b; font-weight:600;">AI Dashboard mockup</figcaption>
+</figure>
+
 <h2>The Problem</h2>
 
 <p>
 Enterprise administrators were overwhelmed by hundreds of security signals. Existing dashboards surfaced data, but didn't help admins understand what mattered most or what to do next.
 </p>
 
-<h2>The Goal</h2>
+<h2>Design Goals</h2>
 
 <p>
 Design an AI-first dashboard that could:
@@ -36,13 +43,6 @@ Design an AI-first dashboard that could:
 <li>Build trust in AI recommendations</li>
 </ul>
 
-<figure style="margin: 0; text-align: center;">
-  <div style="border-radius:4px; overflow:hidden; aspect-ratio:16/8.4;">
-    <img src="/images/ai-dashboard/entra-landing-screenshot.png" alt="Dashboard concept mockup" style="width:100%; height:100%; display:block; object-fit:cover; object-position:center 0%;" />
-  </div>
-  <figcaption style="margin-top:0.5rem; color:#64748b; font-weight:600;">Dashboard concept mockup / screenshot</figcaption>
-</figure>
-
 <h2>My Role</h2>
 
 <ul>
@@ -54,20 +54,11 @@ Design an AI-first dashboard that could:
 <li>Cross-functional collaboration</li>
 </ul>
 
-<h2>Impact</h2>
-
-<ul>
-<li>Influenced the AI strategy for Entra Admin</li>
-<li>Created reusable AI recommendation patterns</li>
-<li>Shipped designs used across multiple AI experiences</li>
-<li>Informed executive direction</li>
-</ul>
-
-<h2>Design Process</h2>
+<h2>Research / Journey</h2>
 
 <figure style="margin: 0; text-align: center;">
   <div style="border-radius:4px; overflow:hidden; aspect-ratio:16/8.4;">
-    <img src="/images/ai-dashboard/ai-dashboard-scrolling.gif" alt="Dashboard landing" style="width:100%; height:100%; display:block; object-fit:cover; object-position:center 0%;" />
+    <img src="/images/ai-dashboard/ai-dashboard-loading.gif" alt="Dashboard landing" style="width:100%; height:100%; display:block; object-fit:cover; object-position:center 0%;" />
   </div>
   <figcaption style="margin-top:0.5rem; color:#64748b; font-weight:600;">Dashboard landing</figcaption>
 </figure>
@@ -79,6 +70,13 @@ We began by synthesizing existing telemetry, customer conversations, and product
 <p>
 Rather than redesigning the existing dashboard, we explored what an AI-first administration experience could look like. Through rapid concepting, we evaluated multiple approaches for surfacing recommendations, explaining AI-generated insights, and guiding administrators toward their next best action.
 </p>
+
+<figure style="margin: 0; text-align: center;">
+  <div style="border-radius:4px; overflow:hidden; aspect-ratio:16/8.4;">
+    <img src="/images/ai-dashboard/decision-intelligence-framework-transparent.png" alt="Decision intelligence framework" style="width:100%; height:100%; display:block; object-fit:contain; object-position:center top;" />
+  </div>
+  <figcaption style="margin-top:0.5rem; color:#64748b; font-weight:600;">Decision intelligence framework</figcaption>
+</figure>
 
 <p>
 Using Figma, AI-assisted prototyping, and close collaboration with engineering, we quickly evolved ideas into interactive prototypes that tested recommendation frameworks, dashboard layouts, and reusable AI interaction patterns.
@@ -100,7 +98,7 @@ Rather than displaying isolated alerts, every recommendation followed the same i
 
 <figure style="margin: 0; text-align: center;">
   <div style="border-radius:4px; overflow:hidden; aspect-ratio:16/8.4;">
-    <img src="/images/ai-dashboard/ai-dashboard-loading.gif" alt="Prototype interaction / motion preview" style="width:100%; height:100%; display:block; object-fit:cover; object-position:center 0%;" />
+    <img src="/images/ai-dashboard/ai-dashboard-scrolling.gif" alt="Prototype interaction / motion preview" style="width:100%; height:100%; display:block; object-fit:cover; object-position:center 0%;" />
   </div>
   <figcaption style="margin-top:0.5rem; color:#9a2c00; font-weight:600;">Prototype interaction / motion preview</figcaption>
 </figure>
@@ -133,17 +131,38 @@ The dashboard unified multiple sources of intelligence into a single experience 
 Generative AI synthesized security signals into concise, human-readable recommendations that explained what changed, why it mattered, and suggested the appropriate next step.
 </p>
 
+<figure style="margin: 0; text-align: center;">
+  <div style="border-radius:4px; overflow:hidden; aspect-ratio:16/8.4;">
+    <img src="/images/ai-dashboard/copilot-dataviz.png" alt="Copilot generated insight card" style="width:100%; height:100%; display:block; object-fit:contain; object-position:center 0%;" />
+  </div>
+  <figcaption style="margin-top:0.5rem; color:#64748b; font-weight:600;">Copilot generated insight card</figcaption>
+</figure>
+
 <h3>Agent Generated Recommendations</h3>
 
 <p>
 Autonomous security agents continuously monitored the environment and surfaced completed investigations, delegated tasks, or recommended actions requiring administrator review.
 </p>
 
+<figure style="margin: 0; text-align: center;">
+  <div style="border-radius:4px; overflow:hidden; aspect-ratio:16/8.4;">
+    <img src="/images/ai-dashboard/zero-trust.png" alt="Agent generated recommendation card" style="width:100%; height:100%; display:block; object-fit:contain; object-position:center 0%;" />
+  </div>
+  <figcaption style="margin-top:0.5rem; color:#64748b; font-weight:600;">Agent generated recommendation card</figcaption>
+</figure>
+
 <h3>Machine Learning Signals</h3>
 
 <p>
 Backend machine learning models surfaced deterministic detections and risk signals while maintaining the same visual interaction pattern used across AI-generated experiences.
 </p>
+
+<figure style="margin: 0; text-align: center;">
+  <div style="border-radius:4px; overflow:hidden; aspect-ratio:16/8.4;">
+    <img src="/images/ai-dashboard/ML-dataviz.png" alt="Machine learning signals card" style="width:100%; height:100%; display:block; object-fit:contain; object-position:center 0%;" />
+  </div>
+  <figcaption style="margin-top:0.5rem; color:#64748b; font-weight:600;">Machine learning signals card</figcaption>
+</figure>
 
 <h2>A Unified Card Pattern</h2>
 

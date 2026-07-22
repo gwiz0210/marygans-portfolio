@@ -7,43 +7,58 @@ const links = [
   { href: "/", label: "home" },
   { href: "/work", label: "work" },
   { href: "/about-me", label: "about" },
-  { href: "/my-process", label: "process" },
+  { href: "/my-process", label: "approach" },
+  { href: "/documents/MaryGans-Resume-Latest.pdf", label: "resume", external: true },
+  { href: "#contact", label: "contact" },
 ];
 ---
 
-<header class="nav">
-  <a href="/" class="wordmark">
-    <img src="/images/favicon.png" alt="" class="wordmark-icon" width="28" height="28" />
-    marygans
-  </a>
-
-  <nav class="pills">
-    {
-      links.map((link) => (
-        <a href={link.href} class:list={["pill", { active: isActive(link.href) }]}>
-          {link.label}
-        </a>
-      ))
-    }
-  </nav>
-
-  <div class="nav-actions">
-    <a href="/documents/MaryGans-Resume-Latest.pdf" target="_blank" rel="noopener" class="nav-link">
-      resume
+<div class="nav-sticky">
+  <header class="nav">
+    <a href="/" class="wordmark">
+      <img src="/images/favicon.png" alt="" class="wordmark-icon" width="28" height="28" />
+      marygans
     </a>
-    <a href="#contact" class="nav-link nav-link--emphasis">Contact</a>
-  </div>
-</header>
+
+    <nav class="pills">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class:list={["pill", { active: isActive(link.href) }]}
+            {...(link.external ? { target: "_blank", rel: "noopener" } : {})}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="nav-actions" style="display:none">
+      <a href="/documents/MaryGans-Resume-Latest.pdf" target="_blank" rel="noopener" class="nav-link">
+        resume
+      </a>
+      <a href="#contact" class="nav-link nav-link--emphasis">Contact</a>
+    </div>
+  </header>
+</div>
 
 <style>
+  .nav-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
   .nav {
     max-width: 1180px;
     margin: 0 auto;
-    padding: 28px 24px 12px;
+    padding: 20px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
+    position: relative;
   }
 
   .wordmark {
@@ -71,6 +86,9 @@ const links = [
     border-radius: 999px;
     padding: 6px;
     box-shadow: var(--shadow-card);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .pill {

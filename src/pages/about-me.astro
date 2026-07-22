@@ -5,39 +5,40 @@ import BentoCard from "../components/BentoCard.astro";
 
 <BaseLayout
   title="About me - Mary Gansallo"
-  description="Hi! I'm Mary. I'm a Product Designer based in the DC area, and I specialize in design systems. Feel free to reach out if you have any questions or want to talk design."
+  description="Hi! I'm Mary, a product designer exploring how AI is changing the way we build software."
 >
   <div class="page-shell">
     <div class="about-grid">
       <BentoCard colSpan={2} rowSpan={2} class="about-bio">
         <h1>Hi! 👋🏽</h1>
         <p>
-          I embrace experimentation and strive to make the world a better
-          place through design.
+          I'm Mary, a product designer exploring how AI is changing the way we
+          build software.
         </p>
         <p>
-          💡 <strong>Solving the tricky stuff.</strong> As a systems thinker, I
-          love breaking down complex problems, especially when it comes to
-          design systems and generative AI.
+          Over the past several years, I've designed enterprise products at
+          Microsoft, helping teams transform complex security, identity, and AI
+          capabilities into experiences people can understand and trust.
         </p>
         <p>
-          💻 <strong>Background.</strong> My Computer Science background fuels
-          my empathy and passion for developer experiences.
+          Today, I'm particularly interested in:
+        </p>
+        <ul>
+          <li>Designing Agentic UX</li>
+          <li>Building AI-native product workflows</li>
+          <li>Rapid prototyping with AI</li>
+          <li>Design systems for autonomous experiences</li>
+          <li>Turning ideas into working products as quickly as possible</li>
+        </ul>
+        <p>
+          I believe the best designers of the next decade won't just create
+          interfaces. They'll design systems where humans and AI work together
+          effectively.
         </p>
         <p>
-          🔧 <strong>Figma geek.</strong> I use Figma to build anything from low
-          and high fidelity wireframes to rapid prototypes, plugins, and
-          design systems.
-        </p>
-        <p>
-          🤜🏾 <strong>Team player.</strong> I thrive in collaborative,
-          cross-functional teams where empathy, data, and creativity intersect
-          to create intuitive product experiences.
-        </p>
-        <p>
-          ⚽ <strong>Fun.</strong> I play and watch soccer and flag football.
-          I'm an Airbnb host, so I also enjoy investing in real estate,
-          travel, music, and building things!
+          Outside of work, I'm usually building side projects, investing in
+          real estate, coaching soccer, cycling, traveling, or documenting my
+          experiments on LinkedIn and Substack.
         </p>
       </BentoCard>
 
@@ -97,6 +98,21 @@ import BentoCard from "../components/BentoCard.astro";
 
   :global(.about-bio) p:last-child {
     margin-bottom: 0;
+  }
+
+  :global(.about-bio) ul {
+    margin: 0 0 14px;
+    padding-left: 22px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  :global(.about-bio) li {
+    margin: 0 0 6px;
+  }
+
+  :global(.about-bio) li::marker {
+    color: var(--ink-soft);
   }
 
   :global(.about-photo) {

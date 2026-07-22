@@ -1,214 +1,235 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import BentoCard from "../components/BentoCard.astro";
-
-const allStudies = await getCollection("case-studies");
-const featuredStudy = allStudies.find((study) => (study.data.slug ?? study.id) === "fluent-design-system");
-
-const steps = [
-  {
-    number: 1,
-    title: "discover & define",
-    emoji: "🔍",
-    background: "var(--accent-blue)",
-    text: "Empathize. A good product begins with understanding the problem. Who is the target audience? What are their needs?",
-  },
-  {
-    number: 2,
-    title: "design",
-    emoji: "✏️",
-    background: "var(--accent-lilac)",
-    text: "Sketch. It's time to consider how users will interact with our proposed solution, forming a clear picture of the interface with wireframes, user journey maps, personas, and more.",
-  },
-  {
-    number: 3,
-    title: "prototype & test",
-    emoji: "🧪",
-    background: "var(--accent-mint)",
-    text: "Create. Here's the extra fun part: let's make the experience as real as it can be for our users. User testing allows people to try it out and give feedback to refine the product.",
-  },
-  {
-    number: 4,
-    title: "release, rinse & repeat",
-    emoji: "🔁",
-    background: "var(--accent-yellow)",
-    text: "Iterate. Continually improving, designing, and gathering user feedback helps create comprehensive models aligned with user needs, saving time, energy, and money.",
-  },
-];
 ---
 
-<BaseLayout title="My process - Mary Gansallo" description="How Mary Gansallo takes a project from discovery through release.">
+<BaseLayout title="My Approach - Mary Gansallo" description="How I design AI products: systems thinking, intelligent UX, prototyping, and deep collaboration with engineering.">
   <div class="page-shell">
-    <div class="process-intro-row">
-      <BentoCard colSpan={1} rowSpan={1} class="intro-card">
-        <h1>my process 🛣️</h1>
-        <p>
-          My design process is ever-evolving and flexible, adaptable to any
-          project from a redesign to a brand-new product.
-        </p>
-        <p>
-          I map every project to this process with a systems mindset, though
-          steps sometimes overlap depending on timelines and team setup.
-        </p>
-      </BentoCard>
+    <article class="approach-card card">
+      <h1>My Approach</h1>
 
-      {featuredStudy && (
-        <BentoCard
-          href={`/case-studies/${featuredStudy.data.slug ?? featuredStudy.id}`}
-          colSpan={1}
-          rowSpan={1}
-          background={featuredStudy.data.lightColor}
-          color={featuredStudy.data.darkColor}
-          padding="0"
-          arrow
-          class="intro-project-card"
-        >
-          <div class="project-copy">
-            <span class="project-emoji">{featuredStudy.data.emoji}</span>
-            <h3>{featuredStudy.data.title}</h3>
-            <p>{featuredStudy.data.tagline ?? featuredStudy.data.blurb}</p>
-          </div>
-          {featuredStudy.data.laptopMockup && (
-            <img
-              src={featuredStudy.data.laptopMockup}
-              alt={featuredStudy.data.title}
-              class="mockup-bleed"
-            />
-          )}
-        </BentoCard>
-      )}
-    </div>
+      <p>
+        I design AI products by understanding systems before screens, validating ideas early through prototypes, and partnering closely with engineering. My work sits at the intersection of product strategy, AI interaction design, and enterprise UX.
+      </p>
 
-    <div class="steps-grid">
-      {steps.map((step) => (
-        <BentoCard colSpan={1} rowSpan={1} background={step.background} class="step-card">
-          <span class="step-number">{step.number}</span>
-          <span class="step-emoji">{step.emoji}</span>
-          <h2>{step.title}</h2>
-          <p>{step.text}</p>
-        </BentoCard>
-      ))}
-    </div>
+      <hr />
+
+      <h2>🧠 Understand the System</h2>
+      <p>
+        Great products start with understanding how everything connects—not just the interface.
+      </p>
+      <p>
+        I map relationships between users, permissions, data, business goals, and technical constraints before designing experiences.
+      </p>
+      <p><strong>Focus</strong></p>
+      <ul>
+        <li>Product strategy</li>
+        <li>Customer research</li>
+        <li>Information architecture</li>
+        <li>Systems mapping</li>
+      </ul>
+
+      <hr />
+
+      <h2>🤖 Design Human–AI Collaboration</h2>
+      <p>
+        AI should make people more capable—not less informed.
+      </p>
+      <p>
+        I design agentic experiences that explain their reasoning, recommend actions, and keep people in control through transparency and review.
+      </p>
+      <p><strong>Deliverables</strong></p>
+      <ul>
+        <li>AI workflows</li>
+        <li>Agent experiences</li>
+        <li>Trust patterns</li>
+        <li>Decision flows</li>
+      </ul>
+
+      <hr />
+
+      <h2>⚡ Prototype with Code</h2>
+      <p>
+        Working software answers questions faster than static mockups.
+      </p>
+      <p>
+        I build high-fidelity prototypes and collaborate with engineering early to validate ideas, reduce implementation risk, and accelerate delivery.
+      </p>
+      <p><strong>Tools</strong></p>
+      <ul>
+        <li>Figma</li>
+        <li>Claude Code</li>
+        <li>VS Code Copilot</li>
+        <li>React</li>
+        <li>Storybook</li>
+        <li>MCP</li>
+      </ul>
+
+      <hr />
+
+      <div class="tools-inline">
+        <h2>Tools I Reach For</h2>
+        <p class="tools-subtitle">A snapshot of the stack I use across product, design, engineering, and AI work.</p>
+        <div class="tools-table-wrap">
+          <table class="tools-table" aria-label="Tools I Reach For">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Design</th>
+                <th scope="col">Engineering</th>
+                <th scope="col">AI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Figma</td>
+                <td>FigJam</td>
+                <td>React</td>
+                <td>Claude</td>
+              </tr>
+              <tr>
+                <td>VS Code</td>
+                <td>Storybook</td>
+                <td>TypeScript</td>
+                <td>GitHub Copilot</td>
+              </tr>
+              <tr>
+                <td>Azure DevOps</td>
+                <td>Miro</td>
+                <td>MCP</td>
+                <td>ChatGPT</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </article>
   </div>
 </BaseLayout>
 
 <style>
-  .process-intro-row {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: var(--gap);
-    margin: 8px 0 24px;
+  .approach-card {
+    max-width: 920px;
+    margin: 10px auto 30px;
+    padding: 36px;
   }
 
-  :global(.intro-project-card) {
-    position: relative;
-    min-height: 0;
+  .approach-card h1 {
+    font-size: 42px;
+    margin: 0 0 14px;
   }
 
-  .project-copy {
-    position: relative;
-    z-index: 2;
-    padding: 24px;
-    max-width: 58%;
-  }
-
-  .project-emoji {
-    display: block;
-    font-size: 22px;
-    margin-bottom: 8px;
-  }
-
-  .project-copy h3 {
-    font-size: 16px;
-    margin: 0 0 4px;
-  }
-
-  .project-copy p {
-    font-size: 13px;
-    margin: 0;
-    opacity: 0.85;
-  }
-
-  .mockup-bleed {
-    position: absolute;
-    z-index: 1;
-    width: 58%;
-    max-width: none;
-    height: auto;
-    object-fit: contain;
-    border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
-    right: -4%;
-    bottom: -8%;
-    transition: transform 0.25s ease;
-  }
-
-  :global(.intro-project-card):hover .mockup-bleed {
-    transform: scale(1.04);
-  }
-
-  :global(.intro-card) h1 {
-    font-size: 28px;
-    margin-bottom: 12px;
-  }
-
-  :global(.intro-card) p {
-    color: var(--ink-soft);
-    line-height: 1.6;
-    margin: 0 0 12px;
-  }
-
-  @media (max-width: 900px) {
-    .process-intro-row {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .steps-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--gap);
-  }
-
-  :global(.step-card) {
-    position: relative;
-    gap: 8px;
-  }
-
-  .step-number {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-family: var(--font-heading);
-    font-size: 22px;
-    opacity: 0.35;
-  }
-
-  .step-emoji {
+  .approach-card h2 {
     font-size: 30px;
+    margin: 28px 0 10px;
   }
 
-  :global(.step-card) h2 {
+  .approach-card h3 {
+    font-size: 24px;
+    margin: 22px 0 8px;
+  }
+
+  .approach-card p {
+    color: var(--ink-soft);
+    line-height: 1.7;
+    margin: 0 0 14px;
+    font-size: 18px;
+  }
+
+  .approach-card ul {
+    margin: 0 0 16px;
+    padding-left: 24px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    font-size: 18px;
+  }
+
+  .approach-card li {
+    margin: 0 0 6px;
+  }
+
+  .approach-card hr {
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    margin: 24px 0;
+  }
+
+  .tools-inline h2 {
+    font-size: 34px;
+    margin: 0 0 10px;
+    color: var(--ink);
+  }
+
+  .tools-subtitle {
+    margin: 0 0 22px;
+    color: var(--ink-soft);
     font-size: 17px;
-    margin: 4px 0 6px;
+    line-height: 1.5;
   }
 
-  :global(.step-card) p {
-    font-size: 14px;
-    line-height: 1.5;
-    margin: 0;
+  .tools-table-wrap {
+    overflow-x: auto;
+  }
+
+  .tools-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid rgba(0, 0, 0, 0.14);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+  }
+
+  .tools-table th,
+  .tools-table td {
+    text-align: left;
+    padding: 16px 0;
+    font-size: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    color: var(--ink);
+  }
+
+  .tools-table th {
+    font-weight: 700;
+  }
+
+  .tools-table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .tools-table th:not(:last-child),
+  .tools-table td:not(:last-child) {
+    padding-right: 20px;
   }
 
   @media (max-width: 900px) {
-    .steps-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .approach-card {
+      padding: 24px;
+    }
+
+    .approach-card h1 {
+      font-size: 34px;
+    }
+
+    .approach-card h2 {
+      font-size: 26px;
+    }
+
+    .tools-inline h2 {
+      font-size: 30px;
+    }
+
+    .tools-table th,
+    .tools-table td {
+      font-size: 18px;
     }
   }
 
-  @media (max-width: 560px) {
-    .steps-grid {
-      grid-template-columns: 1fr;
+  @media (max-width: 640px) {
+    .tools-table {
+      min-width: 640px;
+    }
+
+    .tools-table th,
+    .tools-table td {
+      padding: 14px 0;
     }
   }
 </style>

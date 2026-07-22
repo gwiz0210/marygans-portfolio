@@ -1,0 +1,165 @@
+<nav class="case-study-nav" aria-label="Section navigation">
+  <ul class="case-study-nav-list"></ul>
+</nav>
+
+<style is:global>
+  .case-study-nav {
+    position: fixed;
+    top: 50%;
+    right: 32px;
+    transform: translateY(-50%);
+    z-index: 40;
+  }
+
+  .case-study-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .case-study-nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 2px 0;
+  }
+
+  .case-study-nav-label {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(6px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .case-study-nav:hover .case-study-nav-label {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .case-study-nav-dash {
+    display: block;
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: rgba(43, 43, 43, 0.25);
+    transition: background 0.2s ease, width 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .case-study-nav-item:hover .case-study-nav-dash {
+    background: rgba(43, 43, 43, 0.5);
+  }
+
+  .case-study-nav-item.is-active .case-study-nav-dash {
+    background: var(--ink);
+    width: 26px;
+  }
+
+  .case-study-nav-item.is-active .case-study-nav-label {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  @media (max-width: 1180px) {
+    .case-study-nav {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  function initCaseStudyNav() {
+    const nav = document.querySelector<HTMLElement>(".case-study-nav");
+    const list = nav?.querySelector<HTMLUListElement>(".case-study-nav-list");
+    const content = document.querySelector<HTMLElement>(".richtext");
+    if (!nav || !list || !content) return;
+
+    const headings = Array.from(content.querySelectorAll<HTMLHeadingElement>("h2"));
+    if (headings.length < 2) {
+      nav.remove();
+      return;
+    }
+
+    const usedIds = new Set<string>(
+      Array.from(document.querySelectorAll("[id]")).map((el) => el.id)
+    );
+
+    const slugify = (text: string) =>
+      text
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "") || "section";
+
+    const items: { heading: HTMLHeadingElement; link: HTMLAnchorElement; item: HTMLLIElement }[] = [];
+
+    headings.forEach((heading) => {
+      if (!heading.id) {
+        const base = slugify(heading.textContent || "");
+        let candidate = base;
+        let i = 1;
+        while (usedIds.has(candidate)) {
+          candidate = `${base}-${i++}`;
+        }
+        usedIds.add(candidate);
+        heading.id = candidate;
+      }
+
+      const item = document.createElement("li");
+      item.className = "case-study-nav-item";
+
+      const link = document.createElement("a");
+      link.className = "case-study-nav-link";
+      link.href = `#${heading.id}`;
+
+      const label = document.createElement("span");
+      label.className = "case-study-nav-label";
+      label.textContent = heading.textContent || "";
+
+      const dash = document.createElement("span");
+      dash.className = "case-study-nav-dash";
+
+      link.append(label, dash);
+      item.append(link);
+      list.append(item);
+
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        heading.scrollIntoView({ behavior: "smooth", block: "start" });
+        history.pushState(null, "", `#${heading.id}`);
+      });
+
+      items.push({ heading, link, item });
+    });
+
+    const setActive = (id: string) => {
+      items.forEach(({ item, link }) => {
+        item.classList.toggle("is-active", link.getAttribute("href") === `#${id}`);
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActive((entry.target as HTMLElement).id);
+          }
+        });
+      },
+      { rootMargin: "-20% 0px -70% 0px", threshold: 0 }
+    );
+
+    headings.forEach((heading) => observer.observe(heading));
+    setActive(headings[0].id);
+  }
+
+  initCaseStudyNav();
+</script>

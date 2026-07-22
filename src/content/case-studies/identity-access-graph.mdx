@@ -1,0 +1,229 @@
+---
+title: "An AI-Native Design Workflow"
+slug: "identity-access-graph"
+role: "Senior Product Designer"
+team: "Microsoft Entra"
+time: "Jan - Mar 2026"
+tools: "Figma, Figma MCP, VS Code, Storybook, prototyping, interaction design"
+blurb: "Exploring an AI-native design workflow — grounded in production context and reusable components — using the Identity Access Graph as the proving ground."
+tagline: "shifting the design process from static mockups to living specifications"
+overview: "Exploring an AI-native design workflow — grounded in production context and reusable components — using the Identity Access Graph as the proving ground."
+emoji: "🔐"
+laptopMockup: "/images/identity-graph/permissions-graph.png"
+lightColor: "rgba(210, 228, 234, 0.42)"
+pageBackgroundColor: "rgba(210, 228, 234, 0.34)"
+darkColor: "#1f5361"
+order: 4
+archived: false
+draft: false
+---
+
+<figure style="margin: 0; text-align: center;">
+  <img src="/images/identity-graph/permissions-full.png" alt="Identity Access Graph overview in Microsoft Entra" style="width:100%; display:block; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.10);" />
+</figure>
+
+## Overview
+
+The Identity Access Graph helps security administrators investigate identity relationships, understand access risk, and confidently respond to security incidents through an interactive graph-based experience.
+
+Alongside designing the product experience, I explored a new AI-native approach to enterprise product design. By combining Figma MCP, the Entra Starter prototype, Storybook documentation, reusable components, and VS Code, I established a workflow where AI could reason over existing product context, generate production-quality prototypes, and produce living Markdown specifications for engineering.
+
+This approach strengthened collaboration across design and engineering while enabling faster iteration on a feature that ultimately shipped to production.
+
+## Starting with Production Context
+
+Every design decision began with existing product knowledge rather than a blank canvas.
+
+To establish a shared understanding of the product, I gathered context from multiple sources:
+
+- Figma documentation using Figma MCP
+- The Entra Starter Prototype maintained by the design team and continuously validated against production by engineering
+- Storybook component documentation
+- Existing interaction patterns
+- Design system guidance
+- Product documentation
+
+Together, these artifacts created a living source of truth that AI could understand and reason about throughout the design process.
+
+## AI-Native Design Workflow
+
+With production context established, AI became an active design collaborator.
+
+Working primarily in VS Code, I used AI to:
+
+- Understand existing product patterns
+- Reference Storybook components
+- Generate production-quality prototypes
+- Iterate on interaction models
+- Explore multiple design directions
+- Refine implementation details
+- Maintain consistency with the design system
+
+Instead of recreating existing components, every iteration built on production-ready patterns already used by the product team.
+
+## Building Against Real Components
+
+The Entra Starter Prototype became the foundation for exploration.
+
+Maintained by the design team and continuously validated against production by engineering, it provided a reliable starting point that reflected how the product actually behaved.
+
+Combined with Storybook documentation and reusable component libraries, AI was able to generate prototypes that aligned closely with engineering expectations while remaining flexible enough to explore new interaction patterns. The component catalog and Storybook references served as the authoritative guide for graph-specific components and reusable patterns.
+
+<figure style="margin: 0; text-align: center;">
+  <img src="/images/identity-graph/storybook-documentation.png" alt="Storybook documentation describing the Graph Visualizer component and the scenarios it supports across the security portfolio" style="width:100%; display:block; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.10);" />
+</figure>
+
+<video
+  src="/images/identity-graph/graph-visualizer-storybook.mp4"
+  autoplay
+  controls
+  loop
+  muted
+  playsinline
+  style="width:100%; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.10); display:block;"
+/>
+
+#### Reusable Across Scenarios
+
+Because the Graph Visualizer was built as a shared component, the same node types, semantic color system, and interaction patterns could be reconfigured for entirely different investigation scenarios without rebuilding the underlying graph.
+
+<figure style="margin: 0; text-align: center;">
+  <img src="/images/identity-graph/storybook-all-categories-hover-priviledged.png" alt="Storybook story showing all five semantic node color categories, with a hover state revealing details for a privileged admin node" style="width:100%; display:block; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.10);" />
+</figure>
+
+<figure style="margin: 0; text-align: center;">
+  <img src="/images/identity-graph/storybook-other-captured-scenarios.png" alt="Provisioning topology story reusing the same graph components to visualize identity provisioning flows across HR sources, Microsoft Entra ID, on-premises directories, and SaaS apps" style="width:100%; display:block; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.10);" />
+</figure>
+
+<figure style="margin: 0; text-align: center;">
+  <img src="/images/identity-graph/permissions-graph.png" alt="Wide permissions graph connecting roles, groups, applications, and consent grants" style="width:100%; display:block; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.10);" />
+</figure>
+
+## From Prototype to Specification
+
+One of the most valuable outputs wasn't the prototype—it was the specification.
+
+As the experience evolved, AI generated structured Markdown specifications that documented the interaction model, component usage, behavior, and implementation details.
+
+These living specifications became shared artifacts between design and engineering, reducing ambiguity and making handoff more consistent.
+
+<figure style="margin: 0; text-align: center;">
+  <img src="/images/identity-graph/agent-instructions-01.png" alt="Access Graph Component Catalog specification documenting node and edge components with file paths and usage guidance" style="width:100%; display:block; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.10);" />
+</figure>
+
+<figure style="margin: 0; text-align: center;">
+  <img src="/images/identity-graph/agent-instructions-02.png" alt="Access Graph Component Catalog table of contents linking to node components, edge components, detail panels, and graph controls" style="width:100%; display:block; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.10);" />
+</figure>
+
+Rather than documenting designs after they were complete, the specification evolved alongside the product.
+
+## Applying the Workflow
+
+The Identity Access Graph became the environment where this workflow came together.
+
+Using AI-assisted prototyping, reusable graph components, and production documentation, I designed an investigation experience that helps administrators:
+
+- Understand identity relationships
+- Explore access paths
+- Review agent accountability
+- Investigate security signals
+- Move confidently toward remediation
+
+Each interaction was built on reusable patterns that could scale across future enterprise security experiences.
+
+### Agent Accountability
+
+AI agents introduce a different investigation challenge. Administrators need to understand which agent acted, who authorized it, what resources it interacted with, and how those actions were performed.
+
+The Agent Accountability Graph visualizes relationships between agents, users, sessions, applications, and resources, scoped to only the agents the user is accountable for. This creates a traceable view of delegated activity and helps administrators investigate actions taken across the environment.
+
+<figure style="margin: 0; text-align: center;">
+  <img src="/images/identity-graph/agent-accountability-on-hover.png" alt="Node hover card preview for quick details" style="width:100%; display:block; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.10);" />
+</figure>
+
+<figure style="margin: 0; text-align: center;">
+  <img src="/images/identity-graph/agent-accountability-on-hover-full.png" alt="Expanded details panel with contextual entity information" style="width:100%; display:block; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.10);" />
+</figure>
+
+#### Progressive Disclosure
+
+The experience begins with a focused view of the agent and its most relevant relationships. Administrators can progressively reveal sessions, resources, permissions, and related activity as the investigation deepens, without loading the full graph at once.
+
+<figure style="margin: 0; text-align: center;">
+  <img src="/images/identity-graph/agent-accountability-graph.png" alt="Agent-focused graph showing accountability relationships" style="width:100%; display:block; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.10);" />
+</figure>
+
+#### Focused Investigation
+
+Selecting a relationship opens additional context without removing the administrator from the graph. Details, actions, and supporting information remain connected to the selected node, helping administrators investigate activity while maintaining their place in the broader system.
+
+<figure style="margin: 0; text-align: center;">
+  <img src="/images/identity-graph/agent-accountability-warning.png" alt="Agent accountability graph surfacing a warning on a risky agent relationship" style="width:100%; display:block; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.10);" />
+</figure>
+
+#### End-to-End Demo
+
+<video
+  src="/images/identity-graph/agent-acountability-graph.mp4"
+  autoplay
+  controls
+  loop
+  muted
+  playsinline
+  style="width:100%; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.10); display:block;"
+/>
+
+### Access & Permissions
+
+The Permissions Graph helps administrators answer a critical question: **What does this identity have access to?**
+
+It brings together the user's permissions, roles, groups, applications, and resources in one visual experience, including how they connect and where they lead. Instead of piecing together access across disconnected tables, administrators can quickly understand how permissions were granted, explore relationship paths by expanding nodes, and identify potentially risky access.
+
+<figure style="margin: 0; text-align: center;">
+  <img src="/images/identity-graph/permissions-full.png" alt="Access overview with profile context and full permissions graph" style="width:100%; display:block; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.10);" />
+</figure>
+
+#### Risk Visibility
+
+The graph surfaces risk directly within the access model, helping administrators identify privileged roles, sensitive resources, and potentially excessive permissions. Visual indicators distinguish higher-risk relationships without overwhelming the broader graph.
+
+<figure style="margin: 0; text-align: center;">
+  <img src="/images/identity-graph/permissions-graph-1alert.png" alt="Application access graph with a risky node highlighted" style="width:100%; display:block; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.10);" />
+</figure>
+
+<figure style="margin: 0; text-align: center;">
+  <img src="/images/identity-graph/permissions-graph-3alerts.png" alt="Consent grants view with multiple risky permissions highlighted" style="width:100%; display:block; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.10);" />
+</figure>
+
+#### End-to-End Demo
+
+<video
+  src="/images/identity-graph/Access-graph-permission-graph.mp4"
+  autoplay
+  controls
+  loop
+  muted
+  playsinline
+  style="width:100%; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.10); display:block;"
+/>
+
+## Shared Artifacts
+
+Every iteration strengthened a shared foundation for future work.
+
+Artifacts included:
+
+- Production-ready Markdown specifications
+- Storybook component documentation
+- Reusable graph patterns
+- AI prompts and workflows
+- Interactive prototypes
+- Design guidance
+
+Together, these assets accelerated collaboration across design and engineering while making future features faster to prototype, validate, and evolve.
+
+## Outcome
+
+This project established an AI-native approach to enterprise product design by combining production context, reusable components, AI-assisted prototyping, and living specifications into a single collaborative workflow.
+
+The result was more than an individual feature—it was a repeatable design process that improved collaboration, accelerated iteration, and produced implementation-ready artifacts that engineering could build from with confidence.
