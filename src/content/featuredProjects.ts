@@ -23,4 +23,6 @@ export const PROJECT_ICON_OVERRIDES: Record<string, string> = {
   "catalog-redesign": "layers",
   "fluent-design-system": "shapes",
   coraway: "home",
+  catalog: "package",
+  "catalog-copilot-ai": "sparkles",
 };

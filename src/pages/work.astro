@@ -2,7 +2,8 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BentoCard from "../components/BentoCard.astro";
-import { FEATURED_PROJECT_SLUGS, PROJECT_MOCKUP_TILT_OVERRIDES } from "../content/featuredProjects";
+import ProjectIcon from "../components/ProjectIcon.astro";
+import { FEATURED_PROJECT_SLUGS, PROJECT_MOCKUP_TILT_OVERRIDES, PROJECT_ICON_OVERRIDES } from "../content/featuredProjects";
 
 const allStudies = await getCollection("case-studies");
 
@@ -37,8 +38,14 @@ const mockupTiltClass = (study: (typeof studies)[number], i: number) =>
           class="project-card"
         >
           <div class="project-copy">
-            <span class="project-emoji">{study.data.emoji}</span>
-            <h3>{study.data.title}</h3>
+            <div class="project-title">
+              {PROJECT_ICON_OVERRIDES[study.data.slug ?? study.id] ? (
+                <ProjectIcon name={PROJECT_ICON_OVERRIDES[study.data.slug ?? study.id]} />
+              ) : (
+                <span class="project-emoji">{study.data.emoji}</span>
+              )}
+              <h3>{study.data.title}</h3>
+            </div>
             <p>{study.data.tagline ?? study.data.blurb}</p>
             {study.data.role && <p class="role">{study.data.role}</p>}
           </div>
@@ -86,13 +93,27 @@ const mockupTiltClass = (study: (typeof studies)[number], i: number) =>
     position: relative;
     z-index: 2;
     padding: 22px;
-    max-width: 75%;
+    max-width: 90%;
+  }
+
+  .project-title {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 4px;
   }
 
   .project-emoji {
     display: block;
-    font-size: 22px;
-    margin-bottom: 6px;
+    font-size: 20px;
+  }
+
+  .project-copy :global(.project-icon) {
+    display: block;
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    color: #f39a00;
   }
 
   .mockup-bleed {
@@ -161,7 +182,7 @@ const mockupTiltClass = (study: (typeof studies)[number], i: number) =>
 
   .project-copy h3 {
     font-size: 17px;
-    margin: 0 0 4px;
+    margin: 0;
   }
 
   .project-copy p {

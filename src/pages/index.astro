@@ -143,7 +143,10 @@ const posts = [
 
       <div class="about-row">
         <BentoCard href="/about-me" colSpan={2} rowSpan={2} draggable arrow class="intro-card">
-          <p class="status-pill">🟢 Open to new projects</p>
+          <p class="status-pill">
+            <span class="status-dot" aria-hidden="true"><span class="status-dot-ping"></span></span>
+            Open to new projects
+          </p>
           <div class="intro-heading">
             <img
               src="/images/44DBC6E8-F292-484C-B7B5-DBDCB6D9EF69.jpeg"
@@ -155,12 +158,14 @@ const posts = [
           <p class="bio">
             Based in the DC area, I specialize in design systems, enterprise
             design, and AI-driven products. I love breaking down complex
-            problems where empathy, data, and creativity intersect.
+            problems where empathy, data, and creativity intersect. 
+            </p>
+            <p class="bio">
+            Outside of work, I'm an Airbnb host, girls soccer coach, coffee connoisseur and real-estate tinkerer.
           </p>
         </BentoCard>
 
         <BentoCard colSpan={1} rowSpan={1} background="var(--accent-yellow)" draggable class="fact-card">
-          <span class="fact-emoji">⚽</span>
           <p class="fact-text">
             Airbnb host, soccer player, and real-estate tinkerer outside of
             design.
@@ -193,7 +198,7 @@ const posts = [
           arrow
           class="link-card"
         >
-          <span class="link-emoji">📋</span>
+          <ProjectIcon name="file-text" />
           <p>Resume</p>
         </BentoCard>
 
@@ -242,12 +247,12 @@ const posts = [
           arrow
           class="link-card"
         >
-          <span class="link-emoji">📅</span>
+          <ProjectIcon name="calendar" />
           <p>Book a call with me</p>
         </BentoCard>
 
         <BentoCard href="/my-process" colSpan={1} rowSpan={1} background="var(--accent-yellow)" draggable arrow class="link-card">
-          <span class="link-emoji">🛣️</span>
+          <ProjectIcon name="compass" />
           <p>My approach</p>
           <p class="link-subtext">How I take a project from discovery through release.</p>
         </BentoCard>
@@ -447,6 +452,8 @@ const posts = [
 
   .status-pill {
     display: inline-flex;
+    align-items: center;
+    gap: 8px;
     align-self: flex-start;
     background: var(--accent-mint);
     color: var(--ink);
@@ -455,6 +462,36 @@ const posts = [
     padding: 6px 14px;
     border-radius: 999px;
     margin: 0;
+  }
+
+  .status-dot {
+    position: relative;
+    display: inline-flex;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #10b981;
+    flex-shrink: 0;
+  }
+
+  .status-dot-ping {
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    background: #10b981;
+    animation: status-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes status-ping {
+    0% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    75%,
+    100% {
+      transform: scale(2.4);
+      opacity: 0;
+    }
   }
 
   :global(.intro-card) h1 {
@@ -473,10 +510,6 @@ const posts = [
   :global(.fact-card) {
     justify-content: center;
     gap: 8px;
-  }
-
-  .fact-emoji {
-    font-size: 28px;
   }
 
   .fact-text {
@@ -664,6 +697,14 @@ const posts = [
     display: block;
     font-size: 24px;
     line-height: 1;
+  }
+
+  :global(.link-card) :global(.project-icon) {
+    display: block;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    color: var(--ink);
   }
 
   :global(.link-card) p {

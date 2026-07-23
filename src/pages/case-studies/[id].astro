@@ -2,6 +2,8 @@
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CaseStudyNav from "../../components/CaseStudyNav.astro";
+import ProjectIcon from "../../components/ProjectIcon.astro";
+import { PROJECT_ICON_OVERRIDES } from "../../content/featuredProjects";
 
 export async function getStaticPaths() {
   const caseStudies = await getCollection("case-studies");
@@ -18,6 +20,7 @@ const { Content } = await render(study);
 const heroDescription = study.data.tagline || study.data.blurb || study.data.overview || "";
 const pageBackground = study.data.pageBackgroundColor ?? study.data.lightColor ?? "var(--bg)";
 const heroTextColor = study.data.darkColor ?? "var(--ink)";
+const iconName = PROJECT_ICON_OVERRIDES[study.data.slug ?? study.id];
 const metadataItems = [
   { label: "Role", value: study.data.role },
   { label: "Team", value: study.data.team },
@@ -29,8 +32,14 @@ const metadataItems = [
 <BaseLayout title={`${study.data.title} | Mary Gans`}>
   <section class="project-hero" style={`background:${pageBackground};`}>
     <div class="page-shell">
-      <span class="hero-emoji">{study.data.emoji}</span>
-      <h1 style={`color:${heroTextColor};`}>{study.data.title}</h1>
+      <div class="hero-title">
+        {iconName ? (
+          <ProjectIcon name={iconName} />
+        ) : (
+          <span class="hero-emoji">{study.data.emoji}</span>
+        )}
+        <h1 style={`color:${heroTextColor};`}>{study.data.title}</h1>
+      </div>
       {heroDescription && <p class="hero-description" style={`color:${heroTextColor};`}>{heroDescription}</p>}
       {metadataItems.length > 0 && (
         <div class="meta-grid" style={`color:${heroTextColor};`}>
@@ -106,13 +115,28 @@ const metadataItems = [
     border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   }
 
+  .hero-title {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin: 12px 0;
+  }
+
   .hero-emoji {
     font-size: 40px;
   }
 
+  .hero-title :global(.project-icon) {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    margin-top: 6px;
+    color: #f39a00;
+  }
+
   .project-hero h1 {
     font-size: 34px;
-    margin: 12px 0 12px;
+    margin: 0;
   }
 
   .hero-description {
