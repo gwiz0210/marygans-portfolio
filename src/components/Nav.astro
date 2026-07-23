@@ -41,11 +41,32 @@ const links = [
   </header>
 </div>
 
+<script>
+  const navSticky = document.querySelector(".nav-sticky");
+  if (navSticky) {
+    const updateScrolledState = () => {
+      navSticky.classList.toggle("is-scrolled", window.scrollY > 8);
+    };
+    updateScrolledState();
+    window.addEventListener("scroll", updateScrolledState, { passive: true });
+  }
+</script>
+
 <style>
   .nav-sticky {
     position: sticky;
     top: 0;
     z-index: 100;
+    background: transparent;
+    box-shadow: none;
+    transition: background 0.2s ease, box-shadow 0.2s ease, backdrop-filter 0.2s ease;
+  }
+
+  .nav-sticky.is-scrolled {
+    background: rgba(243, 239, 233, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 1px 0 rgba(43, 43, 43, 0.06), 0 8px 24px rgba(43, 43, 43, 0.05);
   }
 
   .nav {

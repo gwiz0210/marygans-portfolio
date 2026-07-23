@@ -54,7 +54,51 @@ const metadataItems = [
   </div>
 
   <CaseStudyNav />
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button type="button" class="lightbox-close" aria-label="Close image">&times;</button>
+    <img class="lightbox-img" src="" alt="" />
+  </div>
 </BaseLayout>
+
+<script>
+  function initLightbox() {
+    const lightbox = document.querySelector<HTMLDivElement>(".lightbox");
+    const lightboxImg = document.querySelector<HTMLImageElement>(".lightbox-img");
+    const closeBtn = document.querySelector<HTMLButtonElement>(".lightbox-close");
+    if (!lightbox || !lightboxImg || !closeBtn) return;
+
+    const open = (src: string, alt: string) => {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt;
+      lightbox.classList.add("is-open");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    };
+
+    const close = () => {
+      lightbox.classList.remove("is-open");
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      lightboxImg.src = "";
+    };
+
+    document.querySelectorAll<HTMLImageElement>(".richtext img").forEach((img) => {
+      img.classList.add("is-zoomable");
+      img.addEventListener("click", () => open(img.currentSrc || img.src, img.alt));
+    });
+
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) close();
+    });
+    closeBtn.addEventListener("click", close);
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") close();
+    });
+  }
+
+  initLightbox();
+</script>
 
 <style>
   .project-hero {
@@ -120,6 +164,76 @@ const metadataItems = [
   .richtext :global(img) {
     border-radius: var(--radius-md);
     margin: 20px 0;
+  }
+
+  .richtext :global(img.is-zoomable) {
+    cursor: zoom-in;
+    transition: opacity 0.15s ease;
+  }
+
+  .richtext :global(img.is-zoomable:hover) {
+    opacity: 0.92;
+  }
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: rgba(20, 18, 16, 0.9);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .lightbox.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .lightbox-img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: var(--radius-md);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+    cursor: zoom-out;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease;
+  }
+
+  .lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.22);
+  }
+
+  @media (max-width: 640px) {
+    .lightbox {
+      padding: 16px;
+    }
+
+    .lightbox-close {
+      top: 12px;
+      right: 12px;
+    }
   }
 
   .richtext :global(ul),
