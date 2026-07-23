@@ -1,0 +1,29 @@
+---
+import shield from "lucide-static/icons/shield.svg?raw";
+import network from "lucide-static/icons/network.svg?raw";
+import layoutDashboard from "lucide-static/icons/layout-dashboard.svg?raw";
+import layers from "lucide-static/icons/layers.svg?raw";
+import shapes from "lucide-static/icons/shapes.svg?raw";
+import home from "lucide-static/icons/home.svg?raw";
+
+const icons: Record<string, string> = {
+  shield,
+  network,
+  "layout-dashboard": layoutDashboard,
+  layers,
+  shapes,
+  home,
+};
+
+interface Props {
+  name: keyof typeof icons;
+}
+
+const { name } = Astro.props;
+const svg = icons[name]
+  .replace(/<!--[\s\S]*?-->\s*/, "")
+  .replace(/class="[^"]*"/, 'class="project-icon"')
+  .replace(/stroke-width="2"/, 'stroke-width="1.5"');
+---
+
+<Fragment set:html={svg} />

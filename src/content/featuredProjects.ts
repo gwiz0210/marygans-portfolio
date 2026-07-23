@@ -15,3 +15,12 @@ export const PROJECT_MOCKUP_TILT_OVERRIDES: Record<string, string> = {
   perception: "mockup-bleed--perception",
   "agent-identity-graph": "mockup-bleed--identity-access-graph",
 };
+
+export const PROJECT_ICON_OVERRIDES: Record<string, string> = {
+  perception: "shield",
+  "agent-identity-graph": "network",
+  "ai-dashboard": "layout-dashboard",
+  "catalog-redesign": "layers",
+  "fluent-design-system": "shapes",
+  coraway: "home",
+};
